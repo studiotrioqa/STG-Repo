@@ -1,0 +1,23 @@
+{
+  "name": "stg-repo-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://studiotrioqa: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@github.com/studiotrioqa/STG-Repo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/studiotrioqa/STG-Repo/issues"
+  },
+  "homepage": "https://github.com/studiotrioqa/STG-Repo#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.53.2",
+    "@types/node": "^24.0.12"
+  }
+}
