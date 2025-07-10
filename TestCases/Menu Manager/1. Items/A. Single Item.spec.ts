@@ -10,7 +10,7 @@ import * as getCondimentGroup from '../../Utilities/getCondimentGroup.ts';
 import * as getModifiers from '../../Utilities/getModifiers.ts'; // Import the function to get the modifiers
 import { clickMatchingCell } from '../../Utilities/getDeployment.ts'; // Import the function to click on the matching cell in the deployment page
 
-test.setTimeout(120000); // Set timeout to 2 minutes for the entire test suite.
+test.setTimeout(120000); // Set timeout to 2 minutes for the entire test suite
 
 test('Single Item - General Info', async ({page}, testInfo) => {
   const { logToFile, deploymentName } = createLogger(testInfo.title, testInfo.project.name);
