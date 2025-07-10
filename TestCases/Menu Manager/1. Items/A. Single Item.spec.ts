@@ -1,14 +1,14 @@
 import {test} from '@playwright/test'
-import {screenshotFunc} from '../../Utilities/screenshot'; // Import the screenshot function  sample edit
-import {addRandomLetters} from  '../../Utilities/getAddDeleteChar'; // Import the function to get a random character to add or delete 
+import {screenshotFunc} from '../../Utilities/screenshot.ts'; // Import the screenshot function  sample edit
+import {addRandomLetters} from  '../../Utilities/getAddDeleteChar.ts'; // Import the function to get a random character to add or delete 
 import {PLU} from '../../Utilities/getPLU.ts'; // Import the function to get a random PLU
-import {getOperation, addPrice} from '../../Utilities/getOperation'; // Import the function to get a random operation to perform on the price of the items.
-import {createLogger, createLoggedPage} from '../../Utilities/logger'; // Import the logger utilities
-import {getStoreResolution} from '../../Utilities/getResolution'; // Import the function to get the viewport size
-import {stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl} from '../../Utilities/getCredentialsAndUrl'; // Import the URLs and login credentials for staging environment
-import * as getCondimentGroup from '../../Utilities/getCondimentGroup';
-import * as getModifiers from '../../Utilities/getModifiers'; // Import the function to get the modifiers
-import { clickMatchingCell } from '../../Utilities/getDeployment'; // Import the function to click on the matching cell in the deployment page
+import {getOperation, addPrice} from '../../Utilities/getOperation.ts'; // Import the function to get a random operation to perform on the price of the items.
+import {createLogger, createLoggedPage} from '../../Utilities/logger.ts'; // Import the logger utilities
+import {getStoreResolution} from '../../Utilities/getResolution.ts'; // Import the function to get the viewport size
+import {stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl} from '../../Utilities/getCredentialsAndUrl.ts'; // Import the URLs and login credentials for staging environment
+import * as getCondimentGroup from '../../Utilities/getCondimentGroup.ts';
+import * as getModifiers from '../../Utilities/getModifiers.ts'; // Import the function to get the modifiers
+import { clickMatchingCell } from '../../Utilities/getDeployment.ts'; // Import the function to click on the matching cell in the deployment page
 
 test.setTimeout(120000); // Set timeout to 2 minutes for the entire test suite.
 
