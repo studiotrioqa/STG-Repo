@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
 
-// Click on the input field for platform availability
+// Click on the input field for platform availability sample
 export async function clickPlatformAvailable(page: Page) {
   const inputs = page.locator('div.multiPrice_integration-container__2Olqz > div > div > input');
   const count = await inputs.count();
