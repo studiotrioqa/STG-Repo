@@ -12,7 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './TestCasesSTG',
+  testDir: './TestCases',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -34,20 +34,70 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    // Chromium-based browsers
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'CHROMIUM-1920x1080',
+      use: { ...devices['Desktop Chrome'],
+        viewport: { width: 1920, height: 1080 },
+      },
+    },
+    {
+      name: 'CHROMIUM-1680x1050',
+      use: { ...devices['Desktop Chrome'],
+        viewport: { width: 1680, height: 1050 },
+      },
+    },
+    {
+      name: 'CHROMIUM-1366x768',
+      use: { ...devices['Desktop Chrome'],
+        viewport: { width: 1366, height: 768 },
+      },
     },
 
+    // Firefox-based browsers
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: 'FIREFOX-1920x1080',
+      use: { ...devices['Desktop Firefox'],
+        viewport: { width: 1920, height: 1080 },  
+      },
+    },
+    {
+      name: 'FIREFOX-1680x1050',
+      use: { ...devices['Desktop Firefox'],
+        viewport: { width: 1680, height: 1050 },  
+      },
+    },
+    {
+      name: 'FIREFOX-1366x768',
+      use: { ...devices['Desktop Firefox'],
+        viewport: { width: 1366, height: 768 },  
+      },
     },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // MSEDGE-based browsers
+    // {
+    //   name: 'EDGE-1920x1080',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge',
+    //     viewport: { width: 1920, height: 1080 },  
+    //   },
+    // },
+    // {
+    //   name: 'EDGE-1680x1050',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge',
+    //     viewport: { width: 1680, height: 1050 },  
+    //   },
+    // },
+    // {
+    //   name: 'EDGE-1366x768',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge',
+    //     viewport: { width: 1366, height: 768 },  
+    //   },
+    // },
+
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
