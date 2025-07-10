@@ -1,8 +1,8 @@
 import {test} from '@playwright/test'
 import {screenshotFunc} from '../../Utilities/screenshot'; // Import the screenshot function  sample edit
-import {addRandomLetters} from  '../../Utilities/getAddDeleteChar'; // Import the function to get a random character to add or delete
+import {addRandomLetters} from  '../../Utilities/getAddDeleteChar'; // Import the function to get a random character to add or delete 
 import {PLU} from '../../Utilities/getPLU.ts'; // Import the function to get a random PLU
-import {getOperation, addPrice} from '../../Utilities/getOperation'; // Import the function to get a random operation to perform on the price of the item
+import {getOperation, addPrice} from '../../Utilities/getOperation'; // Import the function to get a random operation to perform on the price of the items.
 import {createLogger, createLoggedPage} from '../../Utilities/logger'; // Import the logger utilities
 import {getStoreResolution} from '../../Utilities/getResolution'; // Import the function to get the viewport size
 import {stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl} from '../../Utilities/getCredentialsAndUrl'; // Import the URLs and login credentials for staging environment
