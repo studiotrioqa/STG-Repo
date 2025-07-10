@@ -1,0 +1,5 @@
+[2025-07-10_18-40-40-743] Calling page.goto with args: ["https://stg.my.deliverit.com.au/"]
+[2025-07-10_18-40-44-609] Calling page.getByRole with args: ["textbox",{"name":"Email"}]
+[2025-07-10_18-40-44-611] Calling locator.click with args: []
+[2025-07-10_18-40-44-884] Calling page.getByRole with args: ["textbox",{"name":"Email"}]
+[2025-07-10_18-40-44-885] Calling locator.fill with args: [null]
