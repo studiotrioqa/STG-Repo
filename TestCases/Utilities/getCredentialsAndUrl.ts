@@ -1,16 +1,13 @@
 // STUDIO URLS
-export const stgStudioUrl = 'https://stg.my.deliverit.com.au/';
 export const prodStudioUrl = 'https://my.deliverit.com.au/';
-export const stgDeploymentsUrl = 'https://stg.my.deliverit.com.au/deployment-log';
 export const prodDeploymentsUrl = 'https://my.deliverit.com.au/deployment-log';
-const email=process.env.EMAIL;
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 export const stgLoginCredentials = {
-  email: process.env.EMAIL,
-  password: 'Aa1234567890!'
+  email: process.env.STG_EMAIL || '',
+  password: process.env.STG_PASSWORD || ''
 };
 
-export const prodLoginCredentials = {
-  email: process.env.EMAIL,
-  password: 'Aa1234567890!'
-};
+export const stgStudioUrl = process.env.STG_STUDIO_URL || '';
+export const stgDeploymentsUrl = process.env.STG_DEPLOYMENTS_URL || '';
