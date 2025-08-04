@@ -9,6 +9,7 @@ import {stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl} from '../../TestCa
 import * as getCondimentGroup from '../../TestCases/Utilities/getCondimentGroup.ts';
 import * as getModifiers from '../../TestCases/Utilities/getModifiers.ts'; // Import the function to get the modifiers
 import { clickMatchingCell } from '../../TestCases/Utilities/getDeployment.ts'; // Import the function to click on the matching cell in the deployment page
+import * as getDeployment from '../../TestCases/Utilities/storeDeployments.ts';
 
 test.setTimeout(120000); // Set timeout to 2 minutes for the entire test suite.
 
@@ -23,58 +24,21 @@ test('Single Item - General Info', async ({page}, testInfo) => {
   await loggedPage.getByRole('textbox', { name: 'Password' }).click();
   await loggedPage.getByRole('textbox', { name: 'Password' }).fill(stgLoginCredentials.password);
   await loggedPage.getByRole('button', { name: 'Sign in' }).click();
-  await loggedPage.waitForTimeout(10000);
+
 
   // Select store
-  await loggedPage.locator('#btn-store-selector').nth(0).click();
-  await loggedPage.getByRole('searchbox', { name: 'Search' }).click();
   const storeName = await getStoreResolution(loggedPage);
-  if (storeName) {
-    await loggedPage.getByRole('button', { name: storeName }).click();
-  }
-
+  await loggedPage.locator('#btn-store-selector').nth(0).click();
+  await loggedPage.getByRole('searchbox', { name: 'Search' }).fill(storeName);
+  await loggedPage.getByRole('button', { name: storeName }).click();
   await loggedPage.waitForTimeout(10000);
 
-  // Selecting Item
-  await loggedPage.getByRole('textbox', {name: 'Search PLU / Item Name here'}).click();
-  await loggedPage.getByRole('textbox', {name: 'Search PLU / Item Name here'}).fill(PLU);
-  await loggedPage.locator('xpath=//div[@id="row-0"]').nth(0).click();
-
-  // add 3 random characters to display name, print name, and description
-  await loggedPage.getByRole('textbox', { name: 'Display Name' }).click();
-  for (const char of addRandomLetters) {
-    await loggedPage.keyboard.press(char);
-  }
-  await loggedPage.getByRole('textbox', { name: 'Print Name' }).click();
-  for (const char of addRandomLetters) {
-    await loggedPage.keyboard.press(char);
-  }
-  await loggedPage.getByRole('textbox', { name: 'Description' }).click();
-  for (const char of addRandomLetters) {
-    await loggedPage.keyboard.press(char);
-  }
-
-  await screenshotFunc(loggedPage, testInfo);
-  await loggedPage.getByRole('button', { name: 'Save' }).click();
-  await loggedPage.waitForTimeout(10000);
-
-  // Deploy
-  await loggedPage.locator('xpath=//button[@id="deploy-button"]').click();
-  await loggedPage.getByRole('button', { name: 'Next' }).click();
-  await loggedPage.getByRole('button', { name: 'Next' }).click();
-  await loggedPage.getByRole('button', { name: 'Deploy (1)' }).click();
-  await loggedPage.getByRole('button').filter({ hasText: /^$/}).click();
-  await loggedPage.getByRole('textbox').press('ControlOrMeta+a');
-  await loggedPage.getByRole('textbox').fill(deploymentName);
-  await loggedPage.getByRole('button').filter({ hasText: /^$/ }).click();
-  const storeDeploymentName = await page.getByRole('textbox').inputValue();
-  await loggedPage.getByRole('button', { name: 'Continue Deploy' }).click();
-  await loggedPage.waitForTimeout(5000);
-
-  // Go to Deployments Page
+  // Check if there's in progress deployment
   await loggedPage.goto(stgDeploymentsUrl);
+  await loggedPage.getByRole('checkbox',{ name: 'Only show deployments for'}).check();
   await loggedPage.waitForTimeout(10000);
-  clickMatchingCell(loggedPage, storeDeploymentName);
-  await loggedPage.waitForTimeout(5000);
-  await loggedPage.locator('span.styles_id-value__MH_QF').textContent();
+  await getDeployment.checkDeploymentStatuses(loggedPage, storeName);
+  await loggedPage.goto(stgStudioUrl);
+
+
 });
