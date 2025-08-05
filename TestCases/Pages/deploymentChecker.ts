@@ -13,6 +13,7 @@ export class DeploymentChecker {
     await this.page.getByRole('checkbox', {
       name: 'Only show deployments for',
     }).check();
+    await this.page.waitForTimeout(10000);
 
     // Wait for a key UI element to confirm Studio has loaded
     // await this.page.locator('.rdt_TableBody').waitFor(); // put here the locator
