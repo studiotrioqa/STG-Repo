@@ -35,6 +35,7 @@ export class StoreSelector {
     await this.page.locator('#btn-store-selector').first().click();
     await this.page.getByRole('searchbox', { name: 'Search' }).fill(storeName);
     await this.page.getByRole('button', { name: storeName }).click();
+    await this.page.waitForTimeout(10000);
     return storeName;
   }
 }

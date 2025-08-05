@@ -2,6 +2,7 @@ import { test } from '@playwright/test'
 import { LoginPage } from '../../TestCases/Pages/login.ts';
 import { StoreSelector } from '../../TestCases/Pages/storeSelector.ts'; // Import the function to get the viewport size
 import { DeploymentChecker } from '../../TestCases/Pages/deploymentChecker.ts';
+import { ItemEditor } from '../../TestCases/Pages/itemEditor.ts';
 import { screenshotFunc } from '../../TestCases/Utilities/screenshot.ts'; // Import the screenshot function  sample edit
 import { addRandomLetters } from  '../../TestCases/Utilities/getAddDeleteChar.ts'; // Import the function to get a random character to add or delete 
 import { PLU } from '../../TestCases/Utilities/getPLU.ts'; // Import the function to get a random PLU
@@ -38,27 +39,10 @@ test('Single Item - General Info', async ({page}, testInfo) => {
   await deploymentChecker.returnToStudio();
 
   // Selecting Item
-  await loggedPage.getByRole('textbox', {name: 'Search PLU / Item Name here'}).click();
-  await loggedPage.getByRole('textbox', {name: 'Search PLU / Item Name here'}).fill(PLU);
-  await loggedPage.locator('xpath=//div[@id="row-0"]').nth(0).click();
-
-  // add 3 random characters to display name, print name, and description
-  await loggedPage.getByRole('textbox', { name: 'Display Name' }).click();
-  for (const char of addRandomLetters) {
-    await loggedPage.keyboard.press(char);
-  }
-  await loggedPage.getByRole('textbox', { name: 'Print Name' }).click();
-  for (const char of addRandomLetters) {
-    await loggedPage.keyboard.press(char);
-  }
-  await loggedPage.getByRole('textbox', { name: 'Description' }).click();
-  for (const char of addRandomLetters) {
-    await loggedPage.keyboard.press(char);
-  }
-
-  await screenshotFunc(loggedPage, testInfo);
-  await loggedPage.getByRole('button', { name: 'Save' }).click();
-  await loggedPage.waitForTimeout(10000);
+  const itemEditor = new ItemEditor(loggedPage);
+  await itemEditor.selectItem(PLU);
+  await itemEditor.editFieldsWithRandomLetters(addRandomLetters);
+  await itemEditor.saveAndScreenshot(screenshotFunc, testInfo);
 
   // Deploy
   await loggedPage.locator('xpath=//button[@id="deploy-button"]').click();
