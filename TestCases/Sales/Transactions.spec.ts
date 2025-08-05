@@ -1,14 +1,8 @@
 import {test} from '@playwright/test'
 import { screenshotFunc } from '../../TestCases/Utilities/screenshot'; // Import the screenshot function
-import {addRandomLetters} from  '../../TestCases/Utilities/getAddDeleteChar.ts'; // Import the function to get a random character to add or delete 
-import {PLU} from '../../TestCases/Utilities/getPLU.ts'; // Import the function to get a random PLU
-import {getOperation, addPrice} from '../../TestCases/Utilities/getOperation.ts'; // Import the function to get a random operation to perform on the price of the items.
 import {createLogger, createLoggedPage} from '../../TestCases/Utilities/logger.ts'; // Import the logger utilities
 import {getStoreResolution} from '../../TestCases/Utilities/getResolution.ts'; // Import the function to get the viewport size
 import {stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl} from '../../TestCases/Utilities/getCredentialsAndUrl.ts'; // Import the URLs and login credentials for staging environment
-import * as getCondimentGroup from '../../TestCases/Utilities/getCondimentGroup.ts';
-import * as getModifiers from '../../TestCases/Utilities/getModifiers.ts'; // Import the function to get the modifiers
-import { clickMatchingCell } from '../../TestCases/Utilities/getDeployment.ts'; // Import the function to click on the matching cell in the deployment page
 import * as getDeployment from '../../TestCases/Utilities/storeDeployments.ts';
 
 test.setTimeout(120000); // Set timeout to 2 minutes for the entire test suite.

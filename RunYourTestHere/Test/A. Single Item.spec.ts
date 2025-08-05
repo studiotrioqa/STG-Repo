@@ -1,16 +1,19 @@
-import {test} from '@playwright/test'
-import {screenshotFunc} from '../../Utilities/screenshot.ts'; // Import the screenshot function  sample edit
-import {addRandomLetters} from  '../../Utilities/getAddDeleteChar.ts'; // Import the function to get a random character to add or delete 
-import {PLU} from '../../Utilities/getPLU.ts'; // Import the function to get a random PLU
-import {getOperation, addPrice} from '../../Utilities/getOperation.ts'; // Import the function to get a random operation to perform on the price of the items.
-import { LoggedPage } from '../../Utilities/logger.ts'; // Import the logger utilities
-import {getStoreResolution} from '../../Utilities/getResolution.ts'; // Import the function to get the viewport size
-import {stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl} from '../../Utilities/getCredentialsAndUrl.ts'; // Import the URLs and login credentials for staging environment
-import * as getCondimentGroup from '../../Utilities/getCondimentGroup.ts';
-import * as getModifiers from '../../Utilities/getModifiers.ts'; // Import the function to get the modifiers
-import { clickMatchingCell } from '../../Utilities/getDeployment.ts'; // Import the function to click on the matching cell in the deployment page
-import * as getDeployment from '../../Utilities/storeDeployments.ts';
-import { LoginPage } from '../../Pages/login.ts';
+import { test } from '@playwright/test'
+import { LoginPage } from '../../TestCases/Pages/login.ts';
+import { StoreSelector } from '../../TestCases/Pages/storeSelector.ts'; // Import the function to get the viewport size
+import { DeploymentChecker } from '../../TestCases/Pages/deploymentChecker.ts';
+import { screenshotFunc } from '../../TestCases/Utilities/screenshot.ts'; // Import the screenshot function  sample edit
+import { addRandomLetters } from  '../../TestCases/Utilities/getAddDeleteChar.ts'; // Import the function to get a random character to add or delete 
+import { PLU } from '../../TestCases/Utilities/getPLU.ts'; // Import the function to get a random PLU
+import { getOperation, addPrice } from '../../TestCases/Utilities/getOperation.ts'; // Import the function to get a random operation to perform on the price of the items.
+import { LoggedPage } from '../../TestCases/Utilities/logger.ts'; // Import the logger utilities
+import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../TestCases/Utilities/getCredentialsAndUrl.ts'; // Import the URLs and login credentials for staging environment
+import * as getCondimentGroup from '../../TestCases/Utilities/getCondimentGroup.ts';
+import * as getModifiers from '../../TestCases/Utilities/getModifiers.ts'; // Import the function to get the modifiers
+import { clickMatchingCell } from '../../TestCases/Utilities/getDeployment.ts'; // Import the function to click on the matching cell in the deployment page
+import * as getDeployment from '../../TestCases/Utilities/storeDeployments.ts';
+
+
 
 test.setTimeout(120000); // Set timeout to 2 minutes for the entire test suite
 
@@ -25,19 +28,14 @@ test('Single Item - General Info', async ({page}, testInfo) => {
   await loginPage.login(stgLoginCredentials.email, stgLoginCredentials.password);
 
   // Select store
-  const storeName = await getStoreResolution(loggedPage);
-  await loggedPage.locator('#btn-store-selector').nth(0).click();
-  await loggedPage.getByRole('searchbox', { name: 'Search' }).fill(storeName);
-  await loggedPage.getByRole('button', { name: storeName }).click();
-  await loggedPage.waitForTimeout(10000);
+  const storeSelector = new StoreSelector(loggedPage);
+  const storeName = await storeSelector.selectStore();
 
   // Check if there's in progress deployment
-  await loggedPage.goto(stgDeploymentsUrl);
-  await loggedPage.getByRole('checkbox',{ name: 'Only show deployments for'}).check();
-  await loggedPage.waitForTimeout(10000);
-  await getDeployment.checkDeploymentStatuses(loggedPage, storeName);
-  await loggedPage.goto(stgStudioUrl);
-  await loggedPage.waitForTimeout(10000);
+  const deploymentChecker = new DeploymentChecker(loggedPage);
+  await deploymentChecker.openAndFilterDeployments();
+  await deploymentChecker.assertNoInProgressDeployment(storeName);
+  await deploymentChecker.returnToStudio();
 
   // Selecting Item
   await loggedPage.getByRole('textbox', {name: 'Search PLU / Item Name here'}).click();
