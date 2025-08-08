@@ -55,24 +55,24 @@ export default defineConfig({
     },
 
     // Firefox-based browsers
-    {
-      name: 'FIREFOX-1920x1080',
-      use: { ...devices['Desktop Firefox'],
-        viewport: { width: 1920, height: 1080 },  
-      },
-    },
-    {
-      name: 'FIREFOX-1680x1050',
-      use: { ...devices['Desktop Firefox'],
-        viewport: { width: 1680, height: 1050 },  
-      },
-    },
-    {
-      name: 'FIREFOX-1366x768',
-      use: { ...devices['Desktop Firefox'],
-        viewport: { width: 1366, height: 768 },  
-      },
-    },
+    // {
+    //   name: 'FIREFOX-1920x1080',
+    //   use: { ...devices['Desktop Firefox'],
+    //     viewport: { width: 1920, height: 1080 },  
+    //   },
+    // },
+    // {
+    //   name: 'FIREFOX-1680x1050',
+    //   use: { ...devices['Desktop Firefox'],
+    //     viewport: { width: 1680, height: 1050 },  
+    //   },
+    // },
+    // {
+    //   name: 'FIREFOX-1366x768',
+    //   use: { ...devices['Desktop Firefox'],
+    //     viewport: { width: 1366, height: 768 },  
+    //   },
+    // },
 
     // MSEDGE-based browsers
     // {
