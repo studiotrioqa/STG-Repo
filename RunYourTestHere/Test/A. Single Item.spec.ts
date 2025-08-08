@@ -1,15 +1,15 @@
 import { Page, test } from '@playwright/test'
 
 // Pages
-import { LoginPage } from '../../TestCases/Pages/login';
-import { SearchPLU } from '../../TestCases/Pages/itemSearchItem';
-import { ItemGeneral } from '../../TestCases/Pages/itemGeneral';
-import { ItemPlatformPricing, ItemApplyAllPricing } from '../../TestCases/Pages/itemPricing';
-import { ItemIngredients } from '../../TestCases/Pages/itemIngredients';
-import { ItemModifiers } from '../../TestCases/Pages/itemModifiers';
-import { ItemAdvancedEditor } from '../../TestCases/Pages/itemAdvanced';
-import { DeploymentPage } from '../../TestCases/Pages/deploymentPage';
-import { ItemSaveButton } from '../../TestCases/Pages/itemSaveButton';
+import { LoginPage } from '../../TestCases/Pages/Menu Manager/1. Items/login';
+import { SearchPLU } from '../../TestCases/Pages/Menu Manager/1. Items/itemSearchItem';
+import { ItemGeneral } from '../../TestCases/Pages/Menu Manager/1. Items/itemGeneral';
+import { ItemPlatformPricing, ItemApplyAllPricing } from '../../TestCases/Pages/Menu Manager/1. Items/itemPricing';
+import { ItemIngredients } from '../../TestCases/Pages/Menu Manager/1. Items/itemIngredients';
+import { ItemModifiers } from '../../TestCases/Pages/Menu Manager/1. Items/itemModifiers';
+import { ItemAdvancedEditor } from '../../TestCases/Pages/Menu Manager/1. Items/itemAdvanced';
+import { DeploymentPage } from '../../TestCases/Pages/Menu Manager/1. Items/deploymentPage';
+import { ItemSaveButton } from '../../TestCases/Pages/Menu Manager/1. Items/itemSaveButton';
 
 // Utilities
 import { screenshotFunc } from '../../TestCases/Utilities/screenshot';

@@ -1,15 +1,15 @@
 import { Page, test } from '@playwright/test'
 
 // Pages
-import { LoginPage } from '../../Pages/login';
-import { SearchPLU } from '../../Pages/itemSearchItem';
-import { ItemGeneral } from '../../Pages/itemGeneral';
-import { ItemPlatformPricing, ItemApplyAllPricing } from '../../Pages/itemPricing';
-import { ItemIngredients } from '../../Pages/itemIngredients';
-import { ItemModifiers } from '../../Pages/itemModifiers';
-import { ItemAdvancedEditor } from '../../Pages/itemAdvanced';
-import { DeploymentPage } from '../../Pages/deploymentPage';
-import { ItemSaveButton } from '../../Pages/itemSaveButton';
+import { LoginPage } from '../../Pages/Menu Manager/1. Items/login';
+import { SearchPLU } from '../../Pages/Menu Manager/1. Items/itemSearchItem';
+import { ItemGeneral } from '../../Pages/Menu Manager/1. Items/itemGeneral';
+import { ItemPlatformPricing, ItemApplyAllPricing } from '../../Pages/Menu Manager/1. Items/itemPricing';
+import { ItemIngredients } from '../../Pages/Menu Manager/1. Items/itemIngredients';
+import { ItemModifiers } from '../../Pages/Menu Manager/1. Items/itemModifiers';
+import { ItemAdvancedEditor } from '../../Pages/Menu Manager/1. Items/itemAdvanced';
+import { DeploymentPage } from '../../Pages/Menu Manager/1. Items/deploymentPage';
+import { ItemSaveButton } from '../../Pages/Menu Manager/1. Items/itemSaveButton';
 
 // Utilities
 import { screenshotFunc } from '../../Utilities/screenshot';
