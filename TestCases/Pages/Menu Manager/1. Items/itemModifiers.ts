@@ -4,12 +4,6 @@ import { Page, Locator } from '@playwright/test';
 export class ItemModifiers {
   constructor(private loggedPage: Page) {}
 
-  async searchPLU(plu: string): Promise<void> {
-    await this.loggedPage.getByRole('textbox', { name: 'Search PLU / Item Name here' }).click();
-    await this.loggedPage.getByRole('textbox', { name: 'Search PLU / Item Name here' }).fill(plu);
-    await this.loggedPage.locator('xpath=//div[@id="row-0"]').first().click();
-  }
-
   async clickModifierTab(): Promise<void> {
     await this.loggedPage.locator('#tabs-edit-menu-item-tab-item_options').click();
     await this.loggedPage.waitForTimeout(3000);

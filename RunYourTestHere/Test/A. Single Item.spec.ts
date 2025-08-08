@@ -230,6 +230,9 @@ test('Single Item - Modifiers', async ({page}, testInfo) => {
   // Selecting Item and open Modifiers tab
   const modifiers = new ItemModifiers(loggedPage);
 
+  // Click on Modifiers tab
+  await modifiers.clickModifierTab(); 
+
   // Add modifiers
   await screenshotFunc(loggedPage, testInfo);
   await modifiers.addModifiers();
