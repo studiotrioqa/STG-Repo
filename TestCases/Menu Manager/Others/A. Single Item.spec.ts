@@ -230,6 +230,9 @@ test('Single Item - Modifiers', async ({page}, testInfo) => {
   // Selecting Item and open Modifiers tab
   const modifiers = new ItemModifiers(loggedPage);
 
+  // Click on Modifiers tab
+  await modifiers.clickModifierTab(); 
+
   // Add modifiers
   await screenshotFunc(loggedPage, testInfo);
   await modifiers.addModifiers();
@@ -364,102 +367,3 @@ test('Single Item - ALL', async ({page}, testInfo) => {
   await deploymentPage.openDeploymentDetailByName(logged.deploymentName);
   const deploymentId = await deploymentPage.getDeploymentId();
 });
-
-// ...existing code...
-
-
-// test('Single Item - ALL', async ({page}, testInfo) => {
-//   const logged = new LoggedPage(page, testInfo.title, testInfo.project.name);
-//   const loggedPage = logged.page;
-
-//   await loggedPage.goto(stgStudioUrl);
-
-//   // Login to STUDIO
-//   const loginPage = new LoginPage(loggedPage);
-//   await loginPage.login(stgLoginCredentials.email, stgLoginCredentials.password);
-
-//   // Select store
-//   const storeSelector = new StoreSelector(loggedPage);
-//   const storeName = await storeSelector.selectStore();
-
-//   // Check if there's in progress deployment
-//   const deploymentPage = new DeploymentPage(loggedPage, logged.deploymentName);
-//   await deploymentPage.openAndFilterDeployments();
-//   await deploymentPage.assertNoInProgressDeployment(storeName);
-//   await deploymentPage.returnToStudio();
-
-//   // Selecting Item
-//   await loggedPage.getByRole('textbox', {name: 'Search PLU / Item Name here'}).click();
-//   await loggedPage.getByRole('textbox', {name: 'Search PLU / Item Name here'}).fill(PLU);
-//   await loggedPage.locator('xpath=//div[@id="row-0"]').nth(0).click();
-  
-//   // Item
-//   await loggedPage.waitForTimeout(500);
-//   await screenshotFunc(loggedPage, testInfo);
-//   await loggedPage.getByRole('textbox', { name: 'Display Name' }).click();
-//   for (const char of addRandomLetters) {
-//     await loggedPage.keyboard.press(char);
-//   }
-//   await loggedPage.getByRole('textbox', { name: 'Print Name' }).click();
-//   for (const char of addRandomLetters) {
-//     await loggedPage.keyboard.press(char);
-//   }
-//   await loggedPage.getByRole('textbox', { name: 'Description' }).click();
-//   for (const char of addRandomLetters) {
-//     await loggedPage.keyboard.press(char);
-//   }
-//   await screenshotFunc(loggedPage, testInfo);
-
-//   // Pricing
-//   await loggedPage.getByRole('tab', { name: 'Pricing' }).click();
-//   await screenshotFunc(loggedPage, testInfo);
-//   await loggedPage.locator('input[name="applyAll"]').check();
-//   const fieldValue = await loggedPage.locator('input[name="SellPrice"]').inputValue(); // will be used to get the value of the field SellDPOSShop
-//   const convertedFieldValue = parseFloat(fieldValue.replace(/[^0-9.-]+/g,"")); // will be used to convert the field value to a number
-//   if (convertedFieldValue < 11) {
-//     const newPrice = Number(convertedFieldValue) + addPrice;
-//     await loggedPage.locator('input[name="SellPrice"]').fill(newPrice.toFixed());
-//   } else {
-//     if (getOperation === '+') {
-//         const newPrice = convertedFieldValue + addPrice;
-//         await loggedPage.locator('input[name="SellPrice"]').fill(newPrice.toFixed());
-//     } else {
-//         const newPrice = convertedFieldValue - addPrice;
-//         await loggedPage.locator('input[name="SellPrice"]').fill(newPrice.toFixed());
-//     }
-//   };
-//   await screenshotFunc(loggedPage, testInfo);
-
-//   // Ingredients
-//   await loggedPage.locator('#tabs-edit-menu-item-tab-extras').click();
-//   await screenshotFunc(loggedPage, testInfo);
-//   await getCondimentGroup.removeTopping(loggedPage, 0);   // Remove 3 Current Toppings
-//   await loggedPage.getByRole('combobox').click();
-//   await getCondimentGroup.selectLargestOption(loggedPage); // Select the largest option from the condiment group dropdown
-//   await getCondimentGroup.clickExtrasSequentially(loggedPage); // Select 5 extras
-//   await screenshotFunc(loggedPage, testInfo);
-
-//   // Modofiers
-//   await loggedPage.locator('#tabs-edit-menu-item-tab-item_options').click();
-//   await loggedPage.waitForTimeout(3000);
-//   await screenshotFunc(loggedPage, testInfo);
-//   await getModifiers.addModifiers(loggedPage); // Add modifiers
-//   await screenshotFunc(loggedPage, testInfo);
-//   await getModifiers.removeModifiers(loggedPage); // Remove modifiers
-
-//   // Screenshot before saving
-//   await screenshotFunc(loggedPage, testInfo);
- 
-//   // Save changes
-//   const itemSaveButton = new ItemSaveButton(loggedPage);
-//   await itemSaveButton.save();
-
-//   // Deploy
-//   await deploymentPage.deployItem();
-
-//   // Go to Deployments Page
-//   await deploymentPage.openDeploymentLog(stgDeploymentsUrl);
-//   await deploymentPage.openDeploymentDetailByName(logged.deploymentName);
-//   const deploymentId = await deploymentPage.getDeploymentId();
-
-// });

@@ -1,15 +1,15 @@
 import {test} from '@playwright/test'
-import { screenshotFunc } from '../../../TestCases/Utilities/screenshot.ts'; // Import the screenshot function
-import {addRandomLetters} from  '../../../TestCases/Utilities/getAddDeleteChar.ts'; // Import the function to get a random character to add or delete
-import {PLUName,PLU, randomlySelectPLU} from '../../../TestCases/Utilities/getPLU.ts'; // Import the function to get a random PLU
-import {getOperation, addPrice} from '../../../TestCases/Utilities/getOperation.ts'; // Import the function to get a random operation to perform on the price of the item
-import {createLogger, createLoggedPage} from '../../../TestCases/Utilities/logger.ts'; // Import the logger utilities
-import {getStoreResolution} from '../../../TestCases/Utilities/getResolution.ts'; // Import the function to get the viewport size
-import {stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl} from '../../../TestCases/Utilities/getCredentialsAndUrl.ts'; // Import the URLs and login credentials for staging environment
-import * as getCondimentGroup from '../../../TestCases/Utilities/getCondimentGroup.ts';
+import { screenshotFunc } from '../../../Utilities/screenshot.ts'; // Import the screenshot function
+import {addRandomLetters} from  '../../../Utilities/getAddDeleteChar.ts'; // Import the function to get a random character to add or delete
+import {PLUName,PLU, randomlySelectPLU} from '../../../Utilities/getPLU.ts'; // Import the function to get a random PLU
+import {getOperation, addPrice} from '../../../Utilities/getOperation.ts'; // Import the function to get a random operation to perform on the price of the item
+import {createLogger, createLoggedPage} from '../../../Utilities/logger.ts'; // Import the logger utilities
+import {getStoreResolution} from '../../../Utilities/getResolution.ts'; // Import the function to get the viewport size
+import {stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl} from '../../../Utilities/getCredentialsAndUrl.ts'; // Import the URLs and login credentials for staging environment
+import * as getCondimentGroup from '../../../Utilities/getCondimentGroup.ts';
 import * as getModifiers from '../../../TestCases/Utilities/getModifiers.ts'; // Import the function to get the modifiers
 import { clickMatchingCell } from '../../../TestCases/Utilities/getDeployment.ts'; // Import the function to click on the matching cell in the deployment page
-import { clickPlatformAvailable } from '../../../TestCases/Utilities/clickAvailablePlatform.ts'; // Import the function to click on the available platform
+import { clickPlatformAvailable } from '../../../Utilities/clickAvailablePlatform.ts'; // Import the function to click on the available platform
 import * as getDeployment from '../../Utilities/storeDeployments.ts';
 
 test.setTimeout(120000); // Set timeout to 2 minutes for the entire test suite
