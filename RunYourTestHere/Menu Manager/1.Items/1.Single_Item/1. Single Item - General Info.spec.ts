@@ -1,15 +1,15 @@
 import { Page, test } from '@playwright/test'
 
 // Pages
-import { LoginPage } from '../../../../TestCases/Pages/Menu Manager/1. Items/login';
-import { SearchPLU } from '../../../../TestCases/Pages/Menu Manager/1. Items/itemSearchItem';
-import { ItemGeneral } from '../../../../TestCases/Pages/Menu Manager/1. Items/itemGeneral';
-import { ItemPlatformPricing, ItemApplyAllPricing } from '../../../../TestCases/Pages/Menu Manager/1. Items/itemPricing';
-import { ItemIngredients } from '../../../../TestCases/Pages/Menu Manager/1. Items/itemIngredients';
-import { ItemModifiers } from '../../../../TestCases/Pages/Menu Manager/1. Items/itemModifiers';
-import { ItemAdvancedEditor } from '../../../../TestCases/Pages/Menu Manager/1. Items/itemAdvanced';
-import { DeploymentPage } from '../../../../TestCases/Pages/Menu Manager/1. Items/deploymentPage';
-import { ItemSaveButton } from '../../../../TestCases/Pages/Menu Manager/1. Items/itemSaveButton';
+import { LoginPage } from '../../../../TestCases/Pages/Menu_Manager/1.Items/login';
+import { SearchPLU } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemSearchItem';
+import { ItemGeneral } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemGeneral';
+import { ItemPlatformPricing, ItemApplyAllPricing } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemPricing';
+import { ItemIngredients } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemIngredients';
+import { ItemModifiers } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemModifiers';
+import { ItemAdvancedEditor } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemAdvanced';
+import { DeploymentPage } from '../../../../TestCases/Pages/Menu_Manager/1.Items/deploymentPage';
+import { ItemSaveButton } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemSaveButton';
 
 // Utilities
 import { screenshotFunc } from '../../../../TestCases/Utilities/screenshot';
@@ -23,7 +23,7 @@ import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../.
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
-test('Single Item - Price: Platform Pricing', async ({page}, testInfo) => {
+test('Single Item - General Info', async ({page}, testInfo) => {
   const logged = new LoggedPage(page, testInfo.title, testInfo.project.name);
   const loggedPage = logged.page;
 
@@ -47,9 +47,9 @@ test('Single Item - Price: Platform Pricing', async ({page}, testInfo) => {
   const itemSearch = new SearchPLU(loggedPage);
   await itemSearch.searchPLU(PLU);
 
-  // Selecting Item, open Pricing tab and edit price
-  const itemPlatformPricing = new ItemPlatformPricing(loggedPage);
-  await itemPlatformPricing.goToPricingAndEditPlatformPricing(addPrice, getOperation as ('+' | '-'), screenshotFunc, testInfo);
+  // Selecting Item
+  const itemEditor = new ItemGeneral(loggedPage);
+  await itemEditor.editFieldsWithRandomLetters(addRandomLetters);
 
   // Screenshot before saving
   await screenshotFunc(loggedPage, testInfo);

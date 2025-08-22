@@ -1,4 +1,5 @@
 import {test} from '@playwright/test'
+
 import { screenshotFunc } from '../../../Utilities/screenshot.ts'; // Import the screenshot function
 import {addRandomLetters} from  '../../../Utilities/getAddDeleteChar.ts'; // Import the function to get a random character to add or delete
 import {PLUName,PLU, randomlySelectPLU} from '../../../Utilities/getPLU.ts'; // Import the function to get a random PLU

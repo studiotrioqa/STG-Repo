@@ -1,15 +1,15 @@
 import { Page, test } from '@playwright/test'
 
 // Pages
-import { LoginPage } from '../../../Pages/Menu Manager/1. Items/login';
-import { SearchPLU } from '../../../Pages/Menu Manager/1. Items/itemSearchItem';
-import { ItemGeneral } from '../../../Pages/Menu Manager/1. Items/itemGeneral';
-import { ItemPlatformPricing, ItemApplyAllPricing } from '../../../Pages/Menu Manager/1. Items/itemPricing';
-import { ItemIngredients } from '../../../Pages/Menu Manager/1. Items/itemIngredients';
-import { ItemModifiers } from '../../../Pages/Menu Manager/1. Items/itemModifiers';
-import { ItemAdvancedEditor } from '../../../Pages/Menu Manager/1. Items/itemAdvanced';
-import { DeploymentPage } from '../../../Pages/Menu Manager/1. Items/deploymentPage';
-import { ItemSaveButton } from '../../../Pages/Menu Manager/1. Items/itemSaveButton';
+import { LoginPage } from '../../../Pages/Menu_Manager/1.Items/login';
+import { SearchPLU } from '../../../Pages/Menu_Manager/1.Items/itemSearchItem';
+import { ItemGeneral } from '../../../Pages/Menu_Manager/1.Items/itemGeneral';
+import { ItemPlatformPricing, ItemApplyAllPricing } from '../../../Pages/Menu_Manager/1.Items/itemPricing';
+import { ItemIngredients } from '../../../Pages/Menu_Manager/1.Items/itemIngredients';
+import { ItemModifiers } from '../../../Pages/Menu_Manager/1.Items/itemModifiers';
+import { ItemAdvancedEditor } from '../../../Pages/Menu_Manager/1.Items/itemAdvanced';
+import { DeploymentPage } from '../../../Pages/Menu_Manager/1.Items/deploymentPage';
+import { ItemSaveButton } from '../../../Pages/Menu_Manager/1.Items/itemSaveButton';
 
 // Utilities
 import { screenshotFunc } from '../../../Utilities/screenshot';
@@ -23,7 +23,7 @@ import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../U
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
-test('Single Item - General Info', async ({page}, testInfo) => {
+test('Single Item - Price: Apply All', async ({page}, testInfo) => {
   const logged = new LoggedPage(page, testInfo.title, testInfo.project.name);
   const loggedPage = logged.page;
 
@@ -47,9 +47,9 @@ test('Single Item - General Info', async ({page}, testInfo) => {
   const itemSearch = new SearchPLU(loggedPage);
   await itemSearch.searchPLU(PLU);
 
-  // Selecting Item
-  const itemEditor = new ItemGeneral(loggedPage);
-  await itemEditor.editFieldsWithRandomLetters(addRandomLetters);
+  // Selecting Item, open Pricing tab and edit price
+  const itemApplyAllPricing = new ItemApplyAllPricing(loggedPage);
+  await itemApplyAllPricing.goToPricingAndEditApplyAll(addPrice, getOperation as ('+' | '-'), screenshotFunc, testInfo);
 
   // Screenshot before saving
   await screenshotFunc(loggedPage, testInfo);
