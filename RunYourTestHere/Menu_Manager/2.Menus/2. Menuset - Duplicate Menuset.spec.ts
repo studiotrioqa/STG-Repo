@@ -12,6 +12,7 @@ import { DeploymentPage } from '../../../TestCases/Pages/Menu_Manager/1.Items/de
 import { ItemSaveButton } from '../../../TestCases/Pages/Menu_Manager/1.Items/itemSaveButton';
 import { GoToMenus } from '../../../TestCases/Pages/Menu_Manager/2.Menus/goToMenus';
 import { CreateMenuset } from '../../../TestCases/Pages/Menu_Manager/2.Menus/createMenuset';
+import { DuplicateMenuset } from '../../../TestCases/Pages/Menu_Manager/2.Menus/duplicateMenuset';
 
 // Utilities
 import { screenshotFunc } from '../../../TestCases/Utilities/screenshot';
@@ -26,7 +27,7 @@ import { log } from 'console';
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
-test('Menuset - Create Menuset ', async ({page}, testInfo) => {
+test('Menuset - Duplicate Menuset ', async ({page}, testInfo) => {
   const logged = new LoggedPage(page, testInfo.title, testInfo.project.name);
   const loggedPage = logged.page;
 
@@ -35,7 +36,7 @@ test('Menuset - Create Menuset ', async ({page}, testInfo) => {
   // Login to STUDIO
   const loginPage = new LoginPage(loggedPage);
   await loginPage.login(stgLoginCredentials.email, stgLoginCredentials.password);
-
+ 
   // Select store
   await selectStore(loggedPage);
   const storeName = await getStoreNameByResolution(loggedPage);
@@ -44,10 +45,11 @@ test('Menuset - Create Menuset ', async ({page}, testInfo) => {
   const goToMenus = new GoToMenus(loggedPage);
   await goToMenus.clickMenus();
 
-  // Create Menuset
-  const menuManager = new CreateMenuset(logged);
-  const menusetName = await menuManager.createMenuset(screenshotFunc, testInfo);
-
+  // Duplicate Menuset
+  const duplicateMenuset = new DuplicateMenuset(logged);
+  const dmName = await duplicateMenuset.duplicateMenuset(screenshotFunc, testInfo);
+  
   // Check if Menuset exists
-  await menuManager.checkifMenusetExists(menusetName);
+  const menuManager = new CreateMenuset(logged);
+  await menuManager.checkifMenusetExists(dmName);
 });

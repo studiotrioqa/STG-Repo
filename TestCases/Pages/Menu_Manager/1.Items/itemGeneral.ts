@@ -6,14 +6,14 @@ export const addRandomLetters = Array.from({ length: 3 }, () =>
 ).join('');
 
 export class ItemGeneral {
-  constructor(private loggedPage: Page) {}
+  constructor(private page: Page) {}
 
   async editFieldsWithRandomLetters(randomLetters: string) {
     const fields = ['Display Name', 'Print Name', 'Description'];
     for (const field of fields) {
-      await this.loggedPage.getByRole('textbox', { name: field }).click();
+      await this.page.getByRole('textbox', { name: field }).click();
       for (const char of randomLetters) {
-        await this.loggedPage.keyboard.press(char);
+        await this.page.keyboard.press(char);
       }
     }
   }

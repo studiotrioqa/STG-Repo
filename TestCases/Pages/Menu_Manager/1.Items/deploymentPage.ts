@@ -60,7 +60,7 @@ export class DeploymentPage {
 
   // Extracts the deployment ID from the detail view
   async getDeploymentId(): Promise<string | null> {
-    const idText = await this.page.locator('span.styles_id-value__MH_QF').textContent();
+    const idText = await this.page.locator('span.styles_id-value__MH_QF').nth(0).textContent();
     return idText?.trim() || null;
   }
 

@@ -10,6 +10,7 @@ export class LoggedPage {
   readonly page: Page;
   readonly logToFile: (msg: string) => void;
   readonly deploymentName: string;
+  readonly timestamp = formatTimestampForFileAndLog();
 
   constructor(basePage: Page, testTitle: string, projectName: string) {
     const timestamp = formatTimestampForFileAndLog();
