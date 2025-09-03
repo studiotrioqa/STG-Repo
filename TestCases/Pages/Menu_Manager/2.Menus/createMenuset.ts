@@ -20,7 +20,7 @@ export class CreateMenuset {
     await this.logged.page.locator('#dropdown-integration-selector').click();
     await this.logged.page.waitForTimeout(3000);
 
-    const menusetLocators = this.logged.page.locator('div.menuset_integrations__nqh0Y');
+    const menusetLocators = this.logged.page.locator('a.menuset_menuset-d-item__L9m_J');
     const count = await menusetLocators.count();
     
     for (let i = 0; i < count; i++) {

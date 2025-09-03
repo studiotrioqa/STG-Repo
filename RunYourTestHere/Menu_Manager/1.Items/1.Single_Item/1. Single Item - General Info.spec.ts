@@ -1,4 +1,4 @@
-import { Page, test } from '@playwright/test'
+import { test } from '../../../../TestCases/Utilities/base.fixture';
 
 // Pages
 import { LoginPage } from '../../../../TestCases/Pages/Menu_Manager/1.Items/login';
@@ -24,6 +24,8 @@ import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../.
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
 test('Single Item - General Info', async ({page}, testInfo) => {
+  
+
   const logged = new LoggedPage(page, testInfo.title, testInfo.project.name);
   const loggedPage = logged.page;
 

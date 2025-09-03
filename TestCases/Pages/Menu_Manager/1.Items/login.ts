@@ -4,6 +4,21 @@ export class LoginPage {
   constructor(private page: Page) {}
 
   async login(email: string, password: string) {
+    const viewport = this.page.viewportSize();
+
+    if (!viewport) throw new Error('Viewport not available');
+
+    const { width, height } = viewport;
+
+    if (width === 1920 && height === 1080) {
+      await this.page.waitForTimeout(1000);
+    } else if (width === 1680 && height === 1050) {
+      await this.page.waitForTimeout(3000);
+    } else if (width === 1366 && height === 768) {
+      await this.page.waitForTimeout(6000);
+    } else if (width < 1280) {
+      await this.page.waitForTimeout(9000);
+    }
 
     await this.page.getByRole('textbox', { name: 'Email' }).click();
     await this.page.getByRole('textbox', { name: 'Email' }).fill(email);
@@ -12,11 +27,6 @@ export class LoginPage {
     await this.page.getByRole('textbox', { name: 'Password' }).fill(password);
 
     await this.page.getByRole('button', { name: 'Sign in' }).click();
-
-     // Step 1: Wait for navigation
-    await this.page.waitForURL('**/menu-manager/items'); // Replace with your actual path
-
-    // Step 2: Wait for a key UI element to confirm Studio has loaded
-    await this.page.locator('#btn-store-selector').nth(0).waitFor(); // put here the locator
+    await this.page.waitForTimeout(10000);
   }
 }

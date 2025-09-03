@@ -1,4 +1,4 @@
-import { Page, test } from '@playwright/test'
+import { test } from '../../../../TestCases/Utilities/base.fixture';
 
 // Pages
 import { LoginPage } from '../../../../TestCases/Pages/Menu_Manager/1.Items/login';
