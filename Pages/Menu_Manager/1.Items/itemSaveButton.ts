@@ -9,3 +9,12 @@ export class ItemSaveButton {
     await this.page.waitForTimeout(10000); // Adjust if needed
   }
 }
+
+export class MenuSaveButton {
+  constructor(private page: Page) {}
+
+  async menuSaveButton(): Promise<void> {
+    await this.page.getByRole('button', { name: 'Save', exact: true }).click();
+    await this.page.waitForTimeout(10000); // Adjust if needed
+  }
+}

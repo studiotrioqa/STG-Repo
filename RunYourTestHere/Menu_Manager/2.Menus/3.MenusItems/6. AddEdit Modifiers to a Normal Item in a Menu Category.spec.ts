@@ -10,10 +10,13 @@ import { ItemIngredients } from '../../../../Pages/Menu_Manager/1.Items/itemIngr
 import { ItemModifiers } from '../../../../Pages/Menu_Manager/1.Items/itemModifiers';
 import { ItemAdvancedEditor } from '../../../../Pages/Menu_Manager/1.Items/itemAdvanced';
 import { DeploymentPage } from '../../../../Pages/Menu_Manager/1.Items/deploymentPage';
-import { ItemSaveButton } from '../../../../Pages/Menu_Manager/1.Items/itemSaveButton';
+import { ItemSaveButton, MenuSaveButton } from '../../../../Pages/Menu_Manager/1.Items/itemSaveButton';
 import { GoToMenus } from '../../../../Pages/Menu_Manager/2.Menus/goToMenus';
 import { CreateMenuset } from '../../../../Pages/Menu_Manager/2.Menus/createMenuset';
 import { AddMenuCategory } from '../../../../Pages/Menu_Manager/2.Menus/createMenuCategory';
+import { AddNormalItemToMenuCategory } from '../../../../Pages/Menu_Manager/2.Menus/addItemToAMenuCategory';
+import { CheckItemType } from '../../../../Pages/Menu_Manager/2.Menus/checkItemType';
+
 
 // Utilities
 import { screenshotFunc } from '../../../../Utilities/screenshot';
@@ -26,7 +29,7 @@ import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../.
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
-test('Menu Category - Add Menu Category', async ({page}, testInfo) => {
+test('AddEdit Modifiers of a Normal Item in a Menu Category', async ({page}, testInfo) => {
   const logged = new LoggedPage(page, testInfo.title, testInfo.project.name);
   const loggedPage = logged.page;
 
@@ -40,11 +43,44 @@ test('Menu Category - Add Menu Category', async ({page}, testInfo) => {
   await selectStore(loggedPage);
   const storeName = await getStoreNameByResolution(loggedPage);
 
+  // Check if there's in progress deployment
+  const deploymentPage = new DeploymentPage(loggedPage, logged.deploymentName);
+  await deploymentPage.openAndFilterDeployments();
+  await deploymentPage.assertNoInProgressDeployment(storeName);
+  await deploymentPage.returnToStudio();
+
   // Go to Menus
   const goToMenus = new GoToMenus(loggedPage);
   await goToMenus.clickMenus();
 
-  // Add Menu Category
-  const addMenuCategory = new AddMenuCategory(logged);
-  await addMenuCategory.addMenuCategory(screenshotFunc, testInfo);
+  // Check Item Type in a Menu Category
+  const checkItemType = new CheckItemType(loggedPage);
+  await checkItemType.checkItemType();
+
+  // Click on Modifiers tab
+  const modifiers = new ItemModifiers(loggedPage);
+  await modifiers.clickModifierTab(); 
+
+  // Add modifiers
+  await screenshotFunc(loggedPage, testInfo);
+  await modifiers.addModifiers();
+  await screenshotFunc(loggedPage, testInfo);
+
+  // Remove modifiers
+  await modifiers.removeModifiers();
+
+  // Screenshot before saving
+  await screenshotFunc(loggedPage, testInfo);
+
+  // Save changes
+  const menuSaveButton = new MenuSaveButton(loggedPage);
+  await menuSaveButton.menuSaveButton();
+
+  // Deploy
+  await deploymentPage.deployItem();
+
+  // Go to Deployments Page
+  await deploymentPage.openDeploymentLog(stgDeploymentsUrl);
+  await deploymentPage.openDeploymentDetailByName(logged.deploymentName);
+  const deploymentId = await deploymentPage.getDeploymentId();
 });

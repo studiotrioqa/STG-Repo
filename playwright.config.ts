@@ -1,144 +1,101 @@
 import { defineConfig, devices } from '@playwright/test';
- 
-const CHROME1920 = { ...devices['Desktop Chrome'], viewport: { width: 1920, height: 1080 } };
-const CHROME1680 = { ...devices['Desktop Chrome'], viewport: { width: 1680, height: 1050 } };
-const FIREFOX1920 = { ...devices['Desktop Firefox'], viewport: { width: 1920, height: 1080 } };
-const FIREFOX1680 = { ...devices['Desktop Firefox'], viewport: { width: 1680, height: 1050 } };
- 
+
 export default defineConfig({
   testDir: './RunYourTestHere',
- 
-  // Run everything serially (one worker total)
+  /* Run tests in files in parallel */
   fullyParallel: false,
-  workers: 2,
- 
+  /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
+  /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
+  /* Opt out of parallel tests on CI. */
+  workers: process.env.CI ? 1 : 1,
+  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
-  use: { trace: 'on-first-retry'},
- 
-  projects: [
-      // --- CHROME ---
-      // --- Single Item - General Info chain ---    
-      {
-        name: 'CHROMIUM-1920x1080: General Info',
-        use: CHROME1920,
-        grep: /Single Item - General Info/
-      },
-      { name: 'CHROMIUM-1680x1050: General Info',
-        use: CHROME1680,
-        grep: /Single Item - General Info/
-      },
- 
-      // --- Single Item - Price: Platform Pricing chain ---
-      { name: 'CHROMIUM-1920x1080: Price Platform',
-        use: CHROME1920,
-        grep: /Single Item - Price: Platform Pricing/,
-        dependencies: ['CHROMIUM-1920x1080: General Info']
-      },
-      { name: 'CHROMIUM-1680x1050: Price Platform',
-        use: CHROME1680, grep: /Single Item - Price: Platform Pricing/,
-        dependencies: ['CHROMIUM-1680x1050: General Info']
-      },
- 
-      // --- Single Item - Price: Apply All chain ---
-      { name: 'CHROMIUM-1920x1080: Price Apply All',
-        use: CHROME1920,
-        grep: /Single Item - Price: Apply All/,
-        dependencies: ['CHROMIUM-1920x1080: Price Platform']
-      },
-      { name: 'CHROMIUM-1680x1050: Price Apply All',
-        use: CHROME1680, grep: /Single Item - Price: Apply All/,
-        dependencies: ['CHROMIUM-1680x1050: Price Platform']
-      },
- 
-      // --- Single Item - Current Toppings & Condiment Group chain ---
-      { name: 'CHROMIUM-1920x1080: Current Toppings & Condiment Group',
-        use: CHROME1920,
-        grep: /Single Item - Current Toppings & Condiment Group/,
-        dependencies: ['CHROMIUM-1920x1080: Price Apply All']
-      },
-      { name: 'CHROMIUM-1680x1050: Current Toppings & Condiment Group',
-        use: CHROME1680, grep: /Single Item - Current Toppings & Condiment Group/,
-        dependencies: ['CHROMIUM-1680x1050: Price Apply All']
-      },
- 
-      // --- Single Item - Modifiers chain ---
-      { name: 'CHROMIUM-1920x1080: Modifiers',
-        use: CHROME1920,
-        grep: /Single Item - Modifiers/,
-        dependencies: ['CHROMIUM-1920x1080: Current Toppings & Condiment Group']
-      },
-      { name: 'CHROMIUM-1680x1050: Modifiers',
-        use: CHROME1680, grep: /Single Item - Modifiers/,
-        dependencies: ['CHROMIUM-1680x1050: Current Toppings & Condiment Group']
-      },
- 
-      // --- Single Item - Advance chain ---
-      { name: 'CHROMIUM-1920x1080: Advance',
-        use: CHROME1920,
-        grep: /Single Item - Advance/,
-        dependencies: ['CHROMIUM-1920x1080: Modifiers']
-      },
-      { name: 'CHROMIUM-1680x1050: Advance',
-        use: CHROME1680, grep: /Single Item - Advance/,
-        dependencies: ['CHROMIUM-1680x1050: Modifiers']
-      },
- 
-      // --- Single Item - ALL ---
-      { name: 'CHROMIUM-1920x1080: ALL',
-        use: CHROME1920,
-        grep: /Single Item - ALL/,
-        dependencies: ['CHROMIUM-1920x1080: Advance']
-      },
-      { name: 'CHROMIUM-1680x1050: ALL',
-        use: CHROME1680, grep: /Single Item - ALL/,
-        dependencies: ['CHROMIUM-1680x1050: Advance']
-      },
-   
-      // --- Create Menuset ---
-      {
-        name: 'CHROMIUM-1920x1080: Create Menuset',
-        use: CHROME1920,
-        grep: /Menuset - Create Menuset/,
-        dependencies: ['CHROMIUM-1920x1080: ALL']
-      },
-      { name: 'CHROMIUM-1680x1050: Create Menuset',
-        use: CHROME1680,
-        grep: /Menuset - Create Menuset/,
-        dependencies: ['CHROMIUM-1680x1050: ALL']
-      },
+  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  use: {
+    trace: 'on-first-retry',
+  },
 
-      // --- Menus - Add Menu Category ---
-      {
-        name: 'CHROMIUM-1920x1080: Add Menu Category',
-        use: CHROME1920,
-        grep: /Menu Category - Add Menu Category/,
-        dependencies: ['CHROMIUM-1680x1050: Create Menuset']
+  projects: [
+    // Chromium-based browsers
+    {
+      name: 'CHROMIUM-1920x1080',
+      use: { ...devices['Desktop Chrome'],
+        viewport: { width: 1920, height: 1080 },
       },
-      { name: 'CHROMIUM-1680x1050: Add Menu Category',
-        use: CHROME1680,
-        grep: /Menu Category - Add Menu Category/,
-        dependencies: ['CHROMIUM-1920x1080: Add Menu Category']
+    },
+    {
+      name: 'CHROMIUM-1366x768',
+      use: { ...devices['Desktop Chrome'],
+        viewport: { width: 1366, height: 768 },
       },
- 
-      // // --- Menus - Add Menuset ---
-      // {
-      //   name: 'CHROMIUM-1920x1080: Add Menuset',
-      //   use: CHROME1920,
-      //   grep: /Menus - Add Menuset/
-      // },
-      // { name: 'CHROMIUM-1680x1050: Add Menuset',
-      //   use: CHROME1680,
-      //   grep: /Menus - Add Menuset/,
-      //   dependencies: ['CHROMIUM-1920x1080: Add Menuset']
-      // },
-      // { name: 'FIREFOX-1920x1080: Add Menuset',
-      //   use: FIREFOX1920,
-      //   grep: /Menus - Add Menuset/,
-      //   dependencies: ['CHROMIUM-1680x1050: Add Menuset']
-      // },
- 
-      // Repeat the same 4-project chain for your other tests (Apply All, Ingredients, Modifiers, Advance, ALL)
-    ],
+    },
+
+    // Firefox-based browsers
+    {
+      name: 'FIREFOX-1920x1080',
+      use: { ...devices['Desktop Firefox'],
+        viewport: { width: 1920, height: 1080 },  
+      },
+    },
+    {
+      name: 'FIREFOX-1366x768',
+      use: { ...devices['Desktop Firefox'],
+        viewport: { width: 1366, height: 768 },  
+      },
+    },
+
+    // MSEDGE-based browsers
+    // {
+    //   name: 'EDGE-1920x1080',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge',
+    //     viewport: { width: 1920, height: 1080 },  
+    //   },
+    // },
+    // {
+    //   name: 'EDGE-1680x1050',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge',
+    //     viewport: { width: 1680, height: 1050 },  
+    //   },
+    // },
+    // {
+    //   name: 'EDGE-1366x768',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge',
+    //     viewport: { width: 1366, height: 768 },  
+    //   },
+    // },
+
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
+
+    /* Test against mobile viewports. */
+    // {
+    //   name: 'Mobile Chrome',
+    //   use: { ...devices['Pixel 5'] },
+    // },
+    // {
+    //   name: 'Mobile Safari',
+    //   use: { ...devices['iPhone 12'] },
+    // },
+
+    /* Test against branded browsers. */
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    // },
+    // {
+    //   name: 'Google Chrome',
+    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    // },
+  ],
+
+  /* Run your local dev server before starting the tests */
+  // webServer: {
+  //   command: 'npm run start',
+  //   url: 'http://localhost:3000',
+  //   reuseExistingServer: !process.env.CI,
+  // },
 });

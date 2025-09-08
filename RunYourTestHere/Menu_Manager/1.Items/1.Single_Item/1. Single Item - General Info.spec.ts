@@ -1,31 +1,29 @@
-import { test } from '../../../../TestCases/Utilities/base.fixture';
+import { test } from '../../../../Utilities/base.fixture';
 
 // Pages
-import { LoginPage } from '../../../../TestCases/Pages/Menu_Manager/1.Items/login';
-import { SearchPLU } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemSearchItem';
-import { ItemGeneral } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemGeneral';
-import { ItemPlatformPricing, ItemApplyAllPricing } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemPricing';
-import { ItemIngredients } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemIngredients';
-import { ItemModifiers } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemModifiers';
-import { ItemAdvancedEditor } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemAdvanced';
-import { DeploymentPage } from '../../../../TestCases/Pages/Menu_Manager/1.Items/deploymentPage';
-import { ItemSaveButton } from '../../../../TestCases/Pages/Menu_Manager/1.Items/itemSaveButton';
+import { LoginPage } from '../../../../Pages/Menu_Manager/1.Items/login';
+import { SearchPLU } from '../../../../Pages/Menu_Manager/1.Items/itemSearchItem';
+import { ItemGeneral } from '../../../../Pages/Menu_Manager/1.Items/itemGeneral';
+import { ItemPlatformPricing, ItemApplyAllPricing } from '../../../../Pages/Menu_Manager/1.Items/itemPricing';
+import { ItemIngredients } from '../../../../Pages/Menu_Manager/1.Items/itemIngredients';
+import { ItemModifiers } from '../../../../Pages/Menu_Manager/1.Items/itemModifiers';
+import { ItemAdvancedEditor } from '../../../../Pages/Menu_Manager/1.Items/itemAdvanced';
+import { DeploymentPage } from '../../../../Pages/Menu_Manager/1.Items/deploymentPage';
+import { ItemSaveButton } from '../../../../Pages/Menu_Manager/1.Items/itemSaveButton';
 
 // Utilities
-import { screenshotFunc } from '../../../../TestCases/Utilities/screenshot';
-import { getStoreNameByResolution, selectStore } from '../../../../TestCases/Utilities/storeSelector';
-import { addRandomLetters } from  '../../../../TestCases/Utilities/getAddDeleteChar';
-import { PLU } from '../../../../TestCases/Utilities/getPLU'; 
-import { getOperation, addPrice } from '../../../../TestCases/Utilities/getOperation'; 
-import { LoggedPage } from '../../../../TestCases/Utilities/logger';
-import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../../TestCases/Utilities/getCredentialsAndUrl';
+import { screenshotFunc } from '../../../../Utilities/screenshot';
+import { getStoreNameByResolution, selectStore } from '../../../../Utilities/storeSelector';
+import { addRandomLetters } from  '../../../../Utilities/getAddDeleteChar';
+import { PLU } from '../../../../Utilities/getPLU'; 
+import { getOperation, addPrice } from '../../../../Utilities/getOperation'; 
+import { LoggedPage } from '../../../../Utilities/logger';
+import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../../Utilities/getCredentialsAndUrl';
 
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
 test('Single Item - General Info', async ({page}, testInfo) => {
-  
-
   const logged = new LoggedPage(page, testInfo.title, testInfo.project.name);
   const loggedPage = logged.page;
 
@@ -49,7 +47,7 @@ test('Single Item - General Info', async ({page}, testInfo) => {
   const itemSearch = new SearchPLU(loggedPage);
   await itemSearch.searchPLU(PLU);
 
-  // Selecting Item
+  // Edit Item General Info
   const itemEditor = new ItemGeneral(loggedPage);
   await itemEditor.editFieldsWithRandomLetters(addRandomLetters);
 
