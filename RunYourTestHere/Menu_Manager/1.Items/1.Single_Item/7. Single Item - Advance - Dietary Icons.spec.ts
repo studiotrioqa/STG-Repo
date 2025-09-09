@@ -1,29 +1,29 @@
 import { Page, test } from '@playwright/test'
 
 // Pages
-import { LoginPage } from '../../../Pages/Menu_Manager/1.Items/login';
-import { SearchPLU } from '../../../Pages/Menu_Manager/1.Items/itemSearchItem';
-import { ItemGeneral } from '../../../Pages/Menu_Manager/1.Items/itemGeneral';
-import { ItemPlatformPricing, ItemApplyAllPricing } from '../../../Pages/Menu_Manager/1.Items/itemPricing';
-import { ItemIngredients } from '../../../Pages/Menu_Manager/1.Items/itemIngredients';
-import { ItemModifiers } from '../../../Pages/Menu_Manager/1.Items/itemModifiers';
-import { ItemAdvancedEditor } from '../../../Pages/Menu_Manager/1.Items/itemAdvanced';
-import { DeploymentPage } from '../../../Pages/Menu_Manager/1.Items/deploymentPage';
-import { ItemSaveButton } from '../../../Pages/Menu_Manager/1.Items/itemSaveButton';
+import { LoginPage } from '../../../../Pages/Menu_Manager/1.Items/login';
+import { SearchPLU } from '../../../../Pages/Menu_Manager/1.Items/itemSearchItem';
+import { ItemGeneral } from '../../../../Pages/Menu_Manager/1.Items/itemGeneral';
+import { ItemPlatformPricing, ItemApplyAllPricing } from '../../../../Pages/Menu_Manager/1.Items/itemPricing';
+import { ItemIngredients } from '../../../../Pages/Menu_Manager/1.Items/itemIngredients';
+import { ItemModifiers } from '../../../../Pages/Menu_Manager/1.Items/itemModifiers';
+import { ItemAdvancedEditor } from '../../../../Pages/Menu_Manager/1.Items/itemAdvanced';
+import { DeploymentPage } from '../../../../Pages/Menu_Manager/1.Items/deploymentPage';
+import { ItemSaveButton } from '../../../../Pages/Menu_Manager/1.Items/itemSaveButton';
 
 // Utilities
-import { screenshotFunc } from '../../../Utilities/screenshot';
-import { getStoreNameByResolution, selectStore } from '../../../Utilities/storeSelector';
-import { addRandomLetters } from  '../../../Utilities/getAddDeleteChar';
-import { PLU } from '../../../Utilities/getPLU'; 
-import { getOperation, addPrice } from '../../../Utilities/getOperation'; 
-import { LoggedPage } from '../../../Utilities/logger';
-import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../Utilities/getCredentialsAndUrl';
+import { screenshotFunc } from '../../../../Utilities/screenshot';
+import { getStoreNameByResolution, selectStore } from '../../../../Utilities/storeSelector';
+import { addRandomLetters } from  '../../../../Utilities/getAddDeleteChar';
+import { PLU } from '../../../../Utilities/getPLU'; 
+import { getOperation, addPrice } from '../../../../Utilities/getOperation'; 
+import { LoggedPage } from '../../../../Utilities/logger';
+import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../../Utilities/getCredentialsAndUrl';
 
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
-test('Single Item - Advance', async ({page}, testInfo) => {
+test('Single Item - Advance - Dietary Icons', async ({page}, testInfo) => {
   const logged = new LoggedPage(page, testInfo.title, testInfo.project.name);
   const loggedPage = logged.page;
 
@@ -49,7 +49,8 @@ test('Single Item - Advance', async ({page}, testInfo) => {
 
   // Selecting Item, open Advanced tab and edit visual tag
   const advancedEditor = new ItemAdvancedEditor(loggedPage);
-  await advancedEditor.addVisualTag(addRandomLetters);
+  await advancedEditor.navigateToAdvancedTab();
+  await advancedEditor.IconsSelector();
 
   // Screenshot before saving
   await screenshotFunc(loggedPage, testInfo);
