@@ -8,3 +8,28 @@ node_modules/
 .env
 logs/
 screenshots/
+
+# Environment files
+.env
+.env.*
+
+# Logs
+logs/
+*.log
+
+# Build outputs
+dist/
+build/
+out/
+
+# Coverage
+coverage/
+
+# IDE/editor files
+.vscode/
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+desktop.ini

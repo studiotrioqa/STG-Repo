@@ -1,6 +1,6 @@
-import * as dotenv from 'dotenv';
-
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 export const stgLoginCredentials = {
   email: process.env.STG_CUENZ_CREDS_EMAIL || '',
