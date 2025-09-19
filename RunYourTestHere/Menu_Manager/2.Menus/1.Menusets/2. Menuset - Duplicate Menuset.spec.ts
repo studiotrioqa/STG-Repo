@@ -13,6 +13,7 @@ import { DeploymentPage } from '../../../../Pages/Menu_Manager/1.Items/deploymen
 import { ItemSaveButton } from '../../../../Pages/Menu_Manager/1.Items/itemSaveButton';
 import { GoToMenus } from '../../../../Pages/Menu_Manager/2.Menus/goToMenus';
 import { CreateMenuset } from '../../../../Pages/Menu_Manager/2.Menus/createMenuset';
+import { DuplicateMenuset } from '../../../../Pages/Menu_Manager/2.Menus/duplicateMenuset';
 
 // Utilities
 import { screenshotFunc } from '../../../../Utilities/screenshot';
@@ -33,8 +34,7 @@ test('Menuset - Duplicate Menuset ', async ({page}, testInfo) => {
   await loggedPage.goto(stgStudioUrl);
 
   // Login to STUDIO
-  const loginPage = new LoginPage(loggedPage);
-  await loginPage.login(stgLoginCredentials.email, stgLoginCredentials.password);
+  // Session is already authenticated via storageState
  
   // Select store
   await selectStore(loggedPage);
