@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
+  globalSetup: require.resolve('./global-setup'),
   testDir: './RunYourTestHere',
   /* Run tests in files in parallel */
   fullyParallel: false,
@@ -14,6 +15,7 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    storageState: 'storageState.json',
     trace: 'on-first-retry',
   },
 
