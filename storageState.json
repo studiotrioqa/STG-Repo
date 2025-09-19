@@ -1,0 +1,67 @@
+{
+  "cookies": [
+    {
+      "name": "MADE_USER",
+      "value": "U2FsdGVkX1%2FIleQC6Ghpxgzc06x4ye7YPsM%2FRrmKOIPOvzvg%2BQxiQPxWGfUXMMvavdv02CIjvfRwUK5UUTy3ujIto3A1HbZeFifuUlGpIGvyQmQhPhu8dWSprU5KcvOpSDqFP2W87FRpqxBkywXSgwBJnEO1hlhtNnLYvHJWZTLj39EA2Geat%2F%2B9xuNXNZ6EMwnpMO0dGRnhqNwkgA8UY3kWRZTg9PzgYkq21a4xByIYa1c12Wy2xTl7YtunvzAZ9NckMtw%2Fnd7tsAo90Q5WLXSuZQuwgZf7E%2FK9OkCw3aI0NRVX4kIC85uWUxdwQpAd%2FVjS4J5K2QqQbSK4hOBF83WJZkEjwGYpwe4sekbHcFGpwbH3ghU9%2Fb7wFjXzXoNI",
+      "domain": "stg.my.deliverit.com.au",
+      "path": "/",
+      "expires": 1758251035.44006,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "MADE_SESSION",
+      "value": "kZ6vGwlsilqVay_hmnl2uBWWX_oMxLDH",
+      "domain": "stg.my.deliverit.com.au",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "MADE_PRIVATE_SESSION",
+      "value": "U2FsdGVkX187p%2FK3h0GKew3EF6OaR6fyri0t%2BhkVGJCo22UHpuJtnlImjz9aKIiipoGrUSgGxHE6VX%2Fg4w18udntN1Qmc58eEUlqQK2N%2FuKwSo0M%2FPfnEW26Pd8Yy%2FhYI0XR810UY8IdL%2Fh9LuRSmg%3D%3D",
+      "domain": "stg.my.deliverit.com.au",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "PROFILE_ENTITIES",
+      "value": "%5B%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Deals%22%2C%22entityID%22%3A6%2C%22entityName%22%3A%22Menu%20Manager%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%2C%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Delivery%22%2C%22entityID%22%3A2%2C%22entityName%22%3A%22Settings%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%2C%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Image%20Library%22%2C%22entityID%22%3A11%2C%22entityName%22%3A%22Image%20Library%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%2C%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Ingredients%22%2C%22entityID%22%3A5%2C%22entityName%22%3A%22Menu%20Manager%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%2C%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Integrations%22%2C%22entityID%22%3A12%2C%22entityName%22%3A%22Integrations%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%2C%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Items%22%2C%22entityID%22%3A9%2C%22entityName%22%3A%22Menu%20Manager%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%2C%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Menu%20Settings%22%2C%22entityID%22%3A3%2C%22entityName%22%3A%22Menu%20Manager%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%2C%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Menus%22%2C%22entityID%22%3A8%2C%22entityName%22%3A%22Menu%20Manager%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%2C%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Modifiers%22%2C%22entityID%22%3A7%2C%22entityName%22%3A%22Menu%20Manager%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%2C%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Promo%20Code%22%2C%22entityID%22%3A10%2C%22entityName%22%3A%22Promo%20Code%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%2C%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Shared%20Menus%22%2C%22entityID%22%3A4%2C%22entityName%22%3A%22Settings%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%2C%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Store%22%2C%22entityID%22%3A1%2C%22entityName%22%3A%22Settings%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%2C%7B%22accountID%22%3Anull%2C%22entityCategory%22%3A%22Touchscreen%22%2C%22entityID%22%3A13%2C%22entityName%22%3A%22DPOS%22%2C%22roleID%22%3Anull%2C%22permissions%22%3A%22ALL%22%7D%5D",
+      "domain": "stg.my.deliverit.com.au",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://stg.my.deliverit.com.au",
+      "localStorage": [
+        {
+          "name": "client_id",
+          "value": "\"10627\""
+        },
+        {
+          "name": "report_store_id_selected",
+          "value": "[]"
+        },
+        {
+          "name": "bookmark",
+          "value": "[]"
+        },
+        {
+          "name": "netsuite_external_id",
+          "value": "\"125158\""
+        }
+      ]
+    }
+  ]
+}
