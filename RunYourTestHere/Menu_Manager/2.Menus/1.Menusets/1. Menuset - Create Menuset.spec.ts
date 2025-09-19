@@ -33,8 +33,7 @@ test('Menuset - Create Menuset ', async ({page}, testInfo) => {
   await loggedPage.goto(stgStudioUrl);
 
   // Login to STUDIO
-  const loginPage = new LoginPage(loggedPage);
-  await loginPage.login(stgLoginCredentials.email, stgLoginCredentials.password);
+  // Session is already authenticated via storageState
 
   // Select store
   await selectStore(loggedPage);
