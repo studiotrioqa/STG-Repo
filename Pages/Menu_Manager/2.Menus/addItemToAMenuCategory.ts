@@ -18,14 +18,17 @@ export class AddGroupItemToMenuCategory {
     // Method to add a group item to a menu category
     async addGroupItemtoMenuCategory(groupPLU?: string): Promise<void> {
         const PLUGroupItemName = ['GP02', 'GP03', 'GP04', 'GP05', 'GP06', 'GP07', 'GP08', 'GP09', 'GP10'];
+        const PLUGroupItemName = ['GP02', 'GP03', 'GP04', 'GP05', 'GP06', 'GP07', 'GP08', 'GP09', 'GP10'];
 
         await this.page.locator('div[title].item_card-add__skoxS.card').nth(0).click();
+        await this.page.getByRole('searchbox', { name: 'Search PLU / Item Name here' }).fill("GP01");
         await this.page.getByRole('searchbox', { name: 'Search PLU / Item Name here' }).fill("GP01");
         await this.page.waitForTimeout(1000); // Wait for search results to load    
 
         const getGroupItemTr = this.page.locator('tbody[data-test-id="virtuoso-item-list"] tr');
         let countGroupItemTr = await getGroupItemTr.count();
         
+        // check if there are any items found using for loop
         // check if there are any items found using for loop
         if (countGroupItemTr === 0) {
             for (let i = 0; i < PLUGroupItemName.length; i++) {
@@ -49,6 +52,8 @@ export class AddGroupItemToMenuCategory {
 
         await this.page.getByRole('checkbox', { name: 'Auto Group' }).check();
     }
+
+
 
 
 
