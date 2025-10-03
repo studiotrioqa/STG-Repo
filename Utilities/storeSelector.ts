@@ -8,17 +8,19 @@ export async function getStoreNameByResolution(page: Page): Promise<string> {
   const { width, height } = viewport;
 
   if (width === 1920 && height === 1080) {
-    return 'VS Test Store 01';
+    return 'STUDIO Automation Store 01';
   } else if (width === 1680 && height === 1050) {
     await page.waitForTimeout(1000);
-    return 'VS Test Store 02';
+    return 'STUDIO Automation Store 02';
   } else if (width === 1366 && height === 768) {
     await page.waitForTimeout(2000);
-    return 'VS Test Store 03';
-  } else if (width < 1280) {
-    await page.waitForTimeout(3000);
-    return 'VS Test Store 04';
+    return 'STUDIO Automation Store 03';
   }
+  
+  // else if (width < 1280) {
+  //   await page.waitForTimeout(3000);
+  //   return 'STUDIO Automation Store 03';
+  // }
 
   throw new Error('Unable to determine store name from screen resolution.');
 }
