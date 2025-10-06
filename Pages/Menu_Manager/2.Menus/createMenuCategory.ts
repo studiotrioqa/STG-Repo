@@ -17,7 +17,7 @@ export class AddMenuCategory {
 
     const categoryButtons = this.logged.page.locator(".categories_cate-item__bgKcv");
     const countCategoryButtons = await categoryButtons.count();
-
+    // Iterate through each category button to find a match
     for (let i = 0; i < countCategoryButtons; i++) {
       const text = await categoryButtons.nth(i).textContent();
       if (text?.trim() === menuCategoryName) {

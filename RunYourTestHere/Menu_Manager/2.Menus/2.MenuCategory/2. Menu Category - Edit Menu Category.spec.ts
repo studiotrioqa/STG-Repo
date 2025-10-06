@@ -51,13 +51,16 @@ test('Menu Category - Edit Menu Category', async ({page}, testInfo) => {
   
     // Edit Menu Category
     const editMenuCategoryName = new EditMenuCategoryName(logged);
-    await editMenuCategoryName.addMenuCategory(testInfo);
+    const result = await editMenuCategoryName.addMenuCategory(testInfo);
   
     // Screenshot before saving
     await screenshotFunc(loggedPage, testInfo);
   
     // Deploy
     await deploymentPage.deployItem();
+
+    // Verify if menu category is edited
+    await editMenuCategoryName.verifyMenuCategory;
   
     // Go to Deployments Page
     await deploymentPage.openDeploymentLog(stgDeploymentsUrl);
