@@ -122,7 +122,7 @@ async openDeploymentDetailByName(deploymentName: string): Promise<void> {
     await this.page.locator('xpath=//button[@id="deploy-button"]').click();
     await this.page.getByRole('button', { name: 'Next' }).click();
     await this.page.getByRole('button', { name: 'Next' }).click();
-    await this.page.getByRole('button', { name: 'Deploy (1)' }).click();
+    await this.page.getByRole('button', { name: 'Deploy and Rebuild Website (1)' }).click();
 
     const nameInput = this.page.getByRole('textbox');
     await this.page.getByRole('button').filter({ hasText: /^$/ }).click();

@@ -5,7 +5,14 @@ export class ItemSaveButton {
 
   // Clicks the Save button and waits for a short duration
   async save(): Promise<void> {
+
     await this.page.getByRole('button', { name: 'Save' }).click();
+
+    // 0 price checker
+    if (await this.page.locator('text=Price Check Alert').isVisible()) {
+      await this.page.getByRole('button', { name: 'Continue Anyway' }).click();
+    }
+    
     await this.page.waitForTimeout(10000); // Adjust if needed
   }
 }
@@ -15,6 +22,12 @@ export class MenuSaveButton {
 
   async menuSaveButton(): Promise<void> {
     await this.page.getByRole('button', { name: 'Save', exact: true }).click();
+
+    // 0 price checker
+    if (await this.page.locator('text=Price Check Alert').isVisible()) {
+      await this.page.getByRole('button', { name: 'Continue Anyway' }).click();
+    }
+    
     await this.page.waitForTimeout(10000); // Adjust if needed
   }
 }
