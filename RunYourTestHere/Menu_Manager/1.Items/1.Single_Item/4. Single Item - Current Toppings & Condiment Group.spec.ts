@@ -42,6 +42,7 @@ test('Single Item - Current Toppings & Condiment Group', async ({page}, testInfo
   await deploymentPage.assertNoInProgressDeployment(storeName);
   await deploymentPage.returnToStudio();
 
+
   // Search for Item
   const itemSearch = new SearchPLU(loggedPage);
   await itemSearch.searchPLU(PLU);

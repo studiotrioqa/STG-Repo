@@ -8,13 +8,13 @@ export async function getStoreNameByResolution(page: Page): Promise<string> {
   const { width, height } = viewport;
 
   if (width === 1920 && height === 1080) {
-    return 'STUDIO Automation Store 01';
+    return 'VS Test Store 01';
   } else if (width === 1680 && height === 1050) {
     await page.waitForTimeout(1000);
-    return 'STUDIO Automation Store 02';
+    return 'VS Test Store 02';
   } else if (width === 1366 && height === 768) {
     await page.waitForTimeout(2000);
-    return 'STUDIO Automation Store 03';
+    return 'VS Test Store 03';
   }
   
   // else if (width < 1280) {
@@ -34,9 +34,16 @@ export async function selectStore(page: Page): Promise<string> {
   await page.getByRole('button', { name: storeName }).click();
   await page.waitForTimeout(3000);
   const changeStoreBtn = page.getByRole('button', { name: 'Change Store' });
+  
   if (await changeStoreBtn.isVisible()) {
     await changeStoreBtn.click();
   }
+
   await page.waitForTimeout(10000);
+  
+  // close widget if it appears
+  if (await page.locator('[data-test-id="chat-widget-iframe"]').isVisible())
+    await page.locator('[data-test-id="chat-widget-iframe"]').contentFrame().locator('[data-test-id="ai-welcome-msg-close-button"]').click();
+
   return storeName;
 }
