@@ -16,34 +16,34 @@ import { CreateMenuset } from '../../../../Pages/Menu_Manager/2.Menus/createMenu
 import { AddMenuCategory } from '../../../../Pages/Menu_Manager/2.Menus/createMenuCategory';
 
 // Utilities
-import { screenshotFunc } from '../../../../Utilities/screenshot';
+import { makeDeploymentName } from '../../../../Utilities/testUtils';
 import { getStoreNameByResolution, selectStore } from '../../../../Utilities/storeSelector';
 import { addRandomLetters } from  '../../../../Utilities/getAddDeleteChar';
 import { PLU } from '../../../../Utilities/getPLU'; 
 import { getOperation, addPrice } from '../../../../Utilities/getOperation'; 
-import { LoggedPage } from '../../../../Utilities/logger';
+
 import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../../Utilities/getCredentialsAndUrl';
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
 test('Menu Category - Add Menu Category', async ({page}, testInfo) => {
-  const logged = new LoggedPage(page, testInfo.title, testInfo.project.name);
-  const loggedPage = logged.page;
-
-  await loggedPage.goto(stgStudioUrl);
+  const deploymentName = makeDeploymentName(testInfo.title, testInfo.project.name);
+    await page.goto(stgStudioUrl, {
+      waitUntil: 'domcontentloaded',
+    });
 
   // Login to STUDIO
   // Session is already authenticated via storageState
  
   // Select store
-  await selectStore(loggedPage);
-  const storeName = await getStoreNameByResolution(loggedPage);
+  await selectStore(page);
+  const storeName = await getStoreNameByResolution(page);
 
   // Go to Menus
-  const goToMenus = new GoToMenus(loggedPage);
+  const goToMenus = new GoToMenus(page);
   await goToMenus.clickMenus();
 
   // Add Menu Category
-  const addMenuCategory = new AddMenuCategory(logged);
-  await addMenuCategory.addMenuCategory(screenshotFunc, testInfo);
+  const addMenuCategory = new AddMenuCategory(page);
+  await addMenuCategory.addMenuCategory(testInfo);
 });

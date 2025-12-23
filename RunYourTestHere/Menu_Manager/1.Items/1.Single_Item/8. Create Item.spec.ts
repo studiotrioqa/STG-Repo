@@ -14,53 +14,52 @@ import { GoToMenus } from '../../../../Pages/Menu_Manager/2.Menus/goToMenus';
 import { CreateNewItem } from '../../../../Pages/Menu_Manager/1.Items/createNewItem';
 
 // Utilities
-import { screenshotFunc } from '../../../../Utilities/screenshot';
+import { makeDeploymentName } from '../../../../Utilities/testUtils';
 import { getStoreNameByResolution, selectStore } from '../../../../Utilities/storeSelector';
 import { addRandomLetters } from  '../../../../Utilities/getAddDeleteChar';
 import { PLU } from '../../../../Utilities/getPLU'; 
 import { getOperation, addPrice } from '../../../../Utilities/getOperation'; 
-import { LoggedPage } from '../../../../Utilities/logger';
 import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../../Utilities/getCredentialsAndUrl';
 
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
 test('Create Item', async ({page}, testInfo) => {
-  const logged = new LoggedPage(page, testInfo.title, testInfo.project.name);
-  const loggedPage = logged.page;
-
-  await loggedPage.goto(stgStudioUrl);
+  const deploymentName = makeDeploymentName(testInfo.title, testInfo.project.name);
+  await page.goto(stgStudioUrl, {
+    waitUntil: 'domcontentloaded',
+  });
 
   // Login to STUDIO
   // Session is already authenticated via storageState
 
   // Select store
-  await selectStore(loggedPage);
-  const storeName = await getStoreNameByResolution(loggedPage);
+  await selectStore(page);
+  const storeName = await getStoreNameByResolution(page);
 
   // Check if there's in progress deployment
-  const deploymentPage = new DeploymentPage(loggedPage, logged.deploymentName);
+  const deploymentPage = new DeploymentPage(page, deploymentName);
   // await deploymentPage.openAndFilterDeployments();
   // await deploymentPage.assertNoInProgressDeployment(storeName);
   // await deploymentPage.returnToStudio();
 
   // Create new Item
-  const createNewItem = new CreateNewItem(logged);
+  const createNewItem = new CreateNewItem(page, deploymentName);
   await createNewItem.clickCreateNewItemButton();
-  await createNewItem.categorySelection(screenshotFunc, testInfo);
-  await createNewItem.createItemBasedOnSubCategory(screenshotFunc, testInfo);
-  await createNewItem.setItemPrice(screenshotFunc, testInfo);
-  await createNewItem.setItemImage(screenshotFunc, testInfo);
-  await createNewItem.ingredientsSubCategorySelector(screenshotFunc, testInfo);
-  await createNewItem.createItemAddModifiers(undefined, screenshotFunc, testInfo);
-  await createNewItem.createSelectMenuSet(screenshotFunc, testInfo);
-  await createNewItem.checkItemInMenuset(screenshotFunc, testInfo);
+  await createNewItem.categorySelection(testInfo);
+  await createNewItem.createItemBasedOnSubCategory(testInfo);
+  await createNewItem.setItemPrice(testInfo);
+  await createNewItem.setItemImage(testInfo);
+  await createNewItem.ingredientsSubCategorySelector(testInfo);
+  await createNewItem.createItemAddModifiers(undefined, testInfo);
+  await createNewItem.createSelectMenuSet(testInfo);
+  await createNewItem.checkItemInMenuset(testInfo);
 
   // Deploy
   await deploymentPage.deployItem();
 
   // Go to Deployments Page
   await deploymentPage.openDeploymentLog(stgDeploymentsUrl);
-  await deploymentPage.openDeploymentDetailByName(logged.deploymentName);
+  await deploymentPage.openDeploymentDetailByName(deploymentName);
   const deploymentId = await deploymentPage.getDeploymentId();
 });

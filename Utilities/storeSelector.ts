@@ -39,7 +39,7 @@ export async function selectStore(page: Page): Promise<string> {
     await changeStoreBtn.click();
   }
 
-  await page.waitForTimeout(10000);
+  // await page.waitForTimeout(10000);
   
   // close widget if it appears
   if (await page.locator('[data-test-id="chat-widget-iframe"]').isVisible())

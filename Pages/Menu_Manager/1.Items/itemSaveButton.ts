@@ -13,7 +13,7 @@ export class ItemSaveButton {
       await this.page.getByRole('button', { name: 'Continue Anyway' }).click();
     }
     
-    await this.page.waitForTimeout(10000); // Adjust if needed
+    // await this.page.waitForTimeout(10000);
   }
 }
 
@@ -28,6 +28,6 @@ export class MenuSaveButton {
       await this.page.getByRole('button', { name: 'Continue Anyway' }).click();
     }
     
-    await this.page.waitForTimeout(10000); // Adjust if needed
+    // await this.page.waitForTimeout(10000);
   }
 }

@@ -19,60 +19,54 @@ import { CheckItemType } from '../../../../Pages/Menu_Manager/2.Menus/checkItemT
 
 
 // Utilities
-import { screenshotFunc } from '../../../../Utilities/screenshot';
+import { makeDeploymentName } from '../../../../Utilities/testUtils';
 import { getStoreNameByResolution, selectStore } from '../../../../Utilities/storeSelector';
 import { addRandomLetters } from  '../../../../Utilities/getAddDeleteChar';
 import { PLU } from '../../../../Utilities/getPLU'; 
 import { getOperation, addPrice } from '../../../../Utilities/getOperation'; 
-import { LoggedPage } from '../../../../Utilities/logger';
 import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../../Utilities/getCredentialsAndUrl';
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
 test('AddEdit Modifiers of a Normal Item in a Menu Category', async ({page}, testInfo) => {
-  const logged = new LoggedPage(page, testInfo.title, testInfo.project.name);
-  const loggedPage = logged.page;
-
-  await loggedPage.goto(stgStudioUrl);
+  const deploymentName = makeDeploymentName(testInfo.title, testInfo.project.name);
+  await page.goto(stgStudioUrl, {
+    waitUntil: 'domcontentloaded',
+  });
 
   // Login to STUDIO
   // Session is already authenticated via storageState
  
   // Select store
-  await selectStore(loggedPage);
-  const storeName = await getStoreNameByResolution(loggedPage);
+  await selectStore(page);
+  const storeName = await getStoreNameByResolution(page);
 
   // Check if there's in progress deployment
-  const deploymentPage = new DeploymentPage(loggedPage, logged.deploymentName);
+  const deploymentPage = new DeploymentPage(page, deploymentName);
   await deploymentPage.openAndFilterDeployments();
   await deploymentPage.assertNoInProgressDeployment(storeName);
   await deploymentPage.returnToStudio();
 
   // Go to Menus
-  const goToMenus = new GoToMenus(loggedPage);
+  const goToMenus = new GoToMenus(page);
   await goToMenus.clickMenus();
 
   // Check Item Type in a Menu Category
-  const checkItemType = new CheckItemType(loggedPage);
+  const checkItemType = new CheckItemType(page);
   await checkItemType.checkItemType();
 
   // Click on Modifiers tab
-  const modifiers = new ItemModifiers(loggedPage);
+  const modifiers = new ItemModifiers(page);
   await modifiers.clickModifierTab(); 
 
   // Add modifiers
-  await screenshotFunc(loggedPage, testInfo);
   await modifiers.addModifiers();
-  await screenshotFunc(loggedPage, testInfo);
 
   // Remove modifiers
   await modifiers.removeModifiers();
 
-  // Screenshot before saving
-  await screenshotFunc(loggedPage, testInfo);
-
   // Save changes
-  const menuSaveButton = new MenuSaveButton(loggedPage);
+  const menuSaveButton = new MenuSaveButton(page);
   await menuSaveButton.menuSaveButton();
 
   // Deploy
@@ -80,6 +74,6 @@ test('AddEdit Modifiers of a Normal Item in a Menu Category', async ({page}, tes
 
   // Go to Deployments Page
   await deploymentPage.openDeploymentLog(stgDeploymentsUrl);
-  await deploymentPage.openDeploymentDetailByName(logged.deploymentName);
+  await deploymentPage.openDeploymentDetailByName(deploymentName);
   const deploymentId = await deploymentPage.getDeploymentId();
 });

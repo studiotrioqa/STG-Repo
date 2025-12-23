@@ -6,7 +6,7 @@ export class ItemModifiers {
 
   async clickModifierTab(): Promise<void> {
     await this.page.locator('#tabs-edit-menu-item-tab-item_options').click();
-    await this.page.waitForTimeout(3000);
+    // await this.page.waitForTimeout(3000);
   }
 
   async addModifiers(count = 3): Promise<void> {

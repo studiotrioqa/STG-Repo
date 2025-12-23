@@ -12,12 +12,12 @@ import { DeploymentPage } from '../../../../Pages/Menu_Manager/1.Items/deploymen
 import { ItemSaveButton } from '../../../../Pages/Menu_Manager/1.Items/itemSaveButton';
 
 // Utilities
-import { screenshotFunc } from '../../../../Utilities/screenshot';
+
 import { getStoreNameByResolution, selectStore } from '../../../../Utilities/storeSelector';
 import { addRandomLetters } from  '../../../../Utilities/getAddDeleteChar';
 import { PLU } from '../../../../Utilities/getPLU'; 
 import { getOperation, addPrice } from '../../../../Utilities/getOperation'; 
-import { LoggedPage } from '../../../../Utilities/logger';
+
 import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../../Utilities/getCredentialsAndUrl';
 
 

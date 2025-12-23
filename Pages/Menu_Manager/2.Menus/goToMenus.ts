@@ -1,9 +1,9 @@
 import { Page, Locator } from '@playwright/test';
 
 export class GoToMenus {
-  constructor(private Page: Page) {}
+  constructor(private page: Page) {} // changed property name to 'page'
 
   async clickMenus(): Promise<void> {
-    await this.Page.getByRole('tab', { name: 'Menus' }).click();
+    await this.page.getByRole('tab', { name: 'Menus' }).click();
   }
 }

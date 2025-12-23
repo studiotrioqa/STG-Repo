@@ -5,11 +5,10 @@ import { Page } from '@playwright/test';
 export class ItemIngredients {
   constructor(private page: Page) {}
 
-  async editExtras(screenshotFunc: (loggedPage: Page, testInfo: any) => Promise<void>, testInfo: any): Promise<void> {
+  async editExtras( testInfo: any): Promise<void> {
 
     // Go to Extras tab
     await this.page.locator('#tabs-edit-menu-item-tab-extras').click();
-    await screenshotFunc(this.page, testInfo);
 
     // Remove 3 toppings if visible
     const toppingLabel = this.page.locator("label[for='extras-selected-0']");
@@ -49,7 +48,5 @@ export class ItemIngredients {
       const locator = this.page.locator(`label[for='extras-${i}']`);
       await locator.click();
     }
-
-    await screenshotFunc(this.page, testInfo);
   }
 }

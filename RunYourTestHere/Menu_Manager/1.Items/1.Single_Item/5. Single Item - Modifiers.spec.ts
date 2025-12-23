@@ -12,59 +12,53 @@ import { DeploymentPage } from '../../../../Pages/Menu_Manager/1.Items/deploymen
 import { ItemSaveButton } from '../../../../Pages/Menu_Manager/1.Items/itemSaveButton';
 
 // Utilities
-import { screenshotFunc } from '../../../../Utilities/screenshot';
+import { makeDeploymentName } from '../../../../Utilities/testUtils';
 import { getStoreNameByResolution, selectStore } from '../../../../Utilities/storeSelector';
 import { addRandomLetters } from  '../../../../Utilities/getAddDeleteChar';
 import { PLU } from '../../../../Utilities/getPLU'; 
 import { getOperation, addPrice } from '../../../../Utilities/getOperation'; 
-import { LoggedPage } from '../../../../Utilities/logger';
 import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../../Utilities/getCredentialsAndUrl';
 
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
 test('Single Item - Modifiers', async ({page}, testInfo) => {
-  const logged = new LoggedPage(page, testInfo.title, testInfo.project.name);
-  const loggedPage = logged.page;
-
-  await loggedPage.goto(stgStudioUrl);
+  const deploymentName = makeDeploymentName(testInfo.title, testInfo.project.name);
+  await page.goto(stgStudioUrl, {
+  waitUntil: 'domcontentloaded',
+});
 
   // Login to STUDIO
   // Session is already authenticated via storageState
 
   // Select store
-  await selectStore(loggedPage);
-  const storeName = await getStoreNameByResolution(loggedPage);
+  await selectStore(page);
+  const storeName = await getStoreNameByResolution(page);
 
   // Check if there's in progress deployment
-  const deploymentPage = new DeploymentPage(loggedPage, logged.deploymentName);
+  const deploymentPage = new DeploymentPage(page, deploymentName);
   await deploymentPage.openAndFilterDeployments();
   await deploymentPage.assertNoInProgressDeployment(storeName);
   await deploymentPage.returnToStudio();
 
   // Search for Item
-  const itemSearch = new SearchPLU(loggedPage);
+  const itemSearch = new SearchPLU(page);
   await itemSearch.searchPLU(PLU);
 
   // Selecting Item and open Modifiers tab
-  const modifiers = new ItemModifiers(loggedPage);
+  const modifiers = new ItemModifiers(page);
 
   // Click on Modifiers tab
   await modifiers.clickModifierTab(); 
 
   // Add modifiers
-  await screenshotFunc(loggedPage, testInfo);
   await modifiers.addModifiers();
-  await screenshotFunc(loggedPage, testInfo);
 
   // Remove modifiers
   await modifiers.removeModifiers();
-
-  // Screenshot before saving
-  await screenshotFunc(loggedPage, testInfo);
  
   // Save changes
-  const itemSaveButton = new ItemSaveButton(loggedPage);
+  const itemSaveButton = new ItemSaveButton(page);
   await itemSaveButton.save();
 
   // Deploy
@@ -72,6 +66,6 @@ test('Single Item - Modifiers', async ({page}, testInfo) => {
 
   // Go to Deployments Page
   await deploymentPage.openDeploymentLog(stgDeploymentsUrl);
-  await deploymentPage.openDeploymentDetailByName(logged.deploymentName);
+  await deploymentPage.openDeploymentDetailByName(deploymentName);
   const deploymentId = await deploymentPage.getDeploymentId();
 });

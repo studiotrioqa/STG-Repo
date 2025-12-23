@@ -5,7 +5,7 @@ import { Page, Locator } from '@playwright/test';
 export class ItemPlatformPricing {
   constructor(private page: Page) {}
 
-  async goToPricingAndEditPlatformPricing(addPrice: number, getOperation: '+' | '-', screenshotFunc: (page: Page, testInfo: any) => Promise<void>, testInfo: any): Promise<void> {
+  async goToPricingAndEditPlatformPricing(addPrice: number, getOperation: '+' | '-', testInfo: any): Promise<void> {
     // Navigate to pricing tab
     await this.page.getByRole('tab', { name: 'Pricing' }).click();
 
@@ -24,9 +24,6 @@ export class ItemPlatformPricing {
 
     await priceInput.fill(newPrice.toFixed());
 
-    // Take screenshot
-    await screenshotFunc(this.page, testInfo);
-
   }
 }
 
@@ -34,10 +31,9 @@ export class ItemPlatformPricing {
 export class ItemApplyAllPricing {
   constructor(private page: Page) {}
 
-  async goToPricingAndEditApplyAll(addPrice: number, getOperation: '+' | '-', screenshotFunc: (page: Page, testInfo: any) => Promise<void>, testInfo: any): Promise<void> {
+  async goToPricingAndEditApplyAll(addPrice: number, getOperation: '+' | '-', testInfo: any): Promise<void> {
     // Navigate to pricing tab
     await this.page.getByRole('tab', { name: 'Pricing' }).click();
-    screenshotFunc(this.page, testInfo);
 
     // Get current price
     await this.page.locator('input[name="applyAll"]').check();

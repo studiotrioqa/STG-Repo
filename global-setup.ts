@@ -24,7 +24,9 @@ async function globalSetup() {
 
   try {
     console.log('Performing login...');
-    await page.goto(process.env.STG_STUDIO_URL!);
+    await page.goto(process.env.STG_STUDIO_URL!, {
+      waitUntil: 'domcontentloaded',
+    });
 
     // Wait for email input to be visible
     await page.waitForSelector('input[type="email"]', { timeout: 15000 });

@@ -12,7 +12,7 @@ export class CheckItemType {
         for (let i = 0; i < countItemInMenuCategory; i++) {
             // Click each item one by one
             await this.page.locator('#category-item').nth(i).click();
-            await this.page.waitForTimeout(3000);
+            // await this.page.waitForTimeout(3000);
 
             // Wait for modal to appear
             // const modal = this.page.locator('.modal-selector'); // change selector to your actual modal

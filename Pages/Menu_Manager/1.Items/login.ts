@@ -27,6 +27,6 @@ export class LoginPage {
     await this.page.getByRole('textbox', { name: 'Password' }).fill(password);
 
     await this.page.getByRole('button', { name: 'Sign in' }).click();
-    await this.page.waitForTimeout(10000);
+    // await this.page.waitForTimeout(10000);
   }
 }
