@@ -26,7 +26,7 @@ import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../.
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
-test('Add Normal Item to a Menu Category', async ({page}, testInfo) => {
+test('Add_Normal_Item_to_a_Menu_Category', async ({page}, testInfo) => {
   const deploymentName = makeDeploymentName(testInfo.title, testInfo.project.name);
   await page.goto(stgStudioUrl, {
     waitUntil: 'domcontentloaded',

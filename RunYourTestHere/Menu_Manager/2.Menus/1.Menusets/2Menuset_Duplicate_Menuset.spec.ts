@@ -1,4 +1,5 @@
 import { test } from '../../../../Utilities/base.fixture';
+// import { Page, test } from '@playwright/test'
 
 // Pages
 import { LoginPage } from '../../../../Pages/Menu_Manager/1.Items/login';
@@ -10,6 +11,9 @@ import { ItemModifiers } from '../../../../Pages/Menu_Manager/1.Items/itemModifi
 import { ItemAdvancedEditor } from '../../../../Pages/Menu_Manager/1.Items/itemAdvanced';
 import { DeploymentPage } from '../../../../Pages/Menu_Manager/1.Items/deploymentPage';
 import { ItemSaveButton } from '../../../../Pages/Menu_Manager/1.Items/itemSaveButton';
+import { GoToMenus } from '../../../../Pages/Menu_Manager/2.Menus/goToMenus';
+import { CreateMenuset } from '../../../../Pages/Menu_Manager/2.Menus/createMenuset';
+import { DuplicateMenuset } from '../../../../Pages/Menu_Manager/2.Menus/duplicateMenuset';
 
 // Utilities
 import { makeDeploymentName } from '../../../../Utilities/testUtils';
@@ -22,7 +26,7 @@ import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../.
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
-test('Single Item - General Info', async ({page}, testInfo) => {
+test('Menuset_Duplicate_Menuset', async ({page}, testInfo) => {
   const deploymentName = makeDeploymentName(testInfo.title, testInfo.project.name);
   await page.goto(stgStudioUrl, {
     waitUntil: 'domcontentloaded',
@@ -30,34 +34,20 @@ test('Single Item - General Info', async ({page}, testInfo) => {
 
   // Login to STUDIO
   // Session is already authenticated via storageState
-
+ 
   // Select store
   await selectStore(page);
   const storeName = await getStoreNameByResolution(page);
-
-  // Check if there's in progress deployment
-  const deploymentPage = new DeploymentPage(page, deploymentName);
-  await deploymentPage.openAndFilterDeployments();
-  await deploymentPage.assertNoInProgressDeployment(storeName);
-  await deploymentPage.returnToStudio();
-
-  // Search for Item
-  const itemSearch = new SearchPLU(page);
-  await itemSearch.searchPLU(PLU);
-
-  // Edit Item General Info
-  const itemEditor = new ItemGeneral(page);
-  await itemEditor.editFieldsWithRandomLetters(addRandomLetters);
  
-  // Save changes
-  const itemSaveButton = new ItemSaveButton(page);
-  await itemSaveButton.save();
-
-  // Deploy
-  await deploymentPage.deployItem();
-
-  // Go to Deployments Page
-  await deploymentPage.openDeploymentLog(stgDeploymentsUrl);
-  await deploymentPage.openDeploymentDetailByName(deploymentName);
-  const deploymentId = await deploymentPage.getDeploymentId();
+   // Go to Menus
+  const goToMenus = new GoToMenus(page);
+   await goToMenus.clickMenus();
+ 
+   // Duplicate Menuset
+  const duplicateMenuset = new DuplicateMenuset(page, deploymentName);
+  const dmName = await duplicateMenuset.duplicateMenuset(testInfo);
+   
+   // Check if Menuset exists
+  const menuManager = new CreateMenuset(page, deploymentName);
+  await menuManager.checkifMenusetExists(dmName);
 });

@@ -1,4 +1,5 @@
 import { test } from '../../../../Utilities/base.fixture';
+// import { Page, test } from '@playwright/test'
 
 // Pages
 import { LoginPage } from '../../../../Pages/Menu_Manager/1.Items/login';
@@ -11,7 +12,7 @@ import { ItemAdvancedEditor } from '../../../../Pages/Menu_Manager/1.Items/itemA
 import { DeploymentPage } from '../../../../Pages/Menu_Manager/1.Items/deploymentPage';
 import { ItemSaveButton } from '../../../../Pages/Menu_Manager/1.Items/itemSaveButton';
 import { GoToMenus } from '../../../../Pages/Menu_Manager/2.Menus/goToMenus';
-import { CreateNewItem } from '../../../../Pages/Menu_Manager/1.Items/createNewItem';
+import { CreateMenuset } from '../../../../Pages/Menu_Manager/2.Menus/createMenuset';
 
 // Utilities
 import { makeDeploymentName } from '../../../../Utilities/testUtils';
@@ -24,7 +25,7 @@ import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../.
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
-test('Create Item', async ({page}, testInfo) => {
+test('Menuset_Create_Menuset', async ({page}, testInfo) => {
   const deploymentName = makeDeploymentName(testInfo.title, testInfo.project.name);
   await page.goto(stgStudioUrl, {
     waitUntil: 'domcontentloaded',
@@ -36,30 +37,13 @@ test('Create Item', async ({page}, testInfo) => {
   // Select store
   await selectStore(page);
   const storeName = await getStoreNameByResolution(page);
-
-  // Check if there's in progress deployment
-  const deploymentPage = new DeploymentPage(page, deploymentName);
-  // await deploymentPage.openAndFilterDeployments();
-  // await deploymentPage.assertNoInProgressDeployment(storeName);
-  // await deploymentPage.returnToStudio();
-
-  // Create new Item
-  const createNewItem = new CreateNewItem(page, deploymentName);
-  await createNewItem.clickCreateNewItemButton();
-  await createNewItem.categorySelection(testInfo);
-  await createNewItem.createItemBasedOnSubCategory(testInfo);
-  await createNewItem.setItemPrice(testInfo);
-  await createNewItem.setItemImage(testInfo);
-  await createNewItem.ingredientsSubCategorySelector(testInfo);
-  await createNewItem.createItemAddModifiers(undefined, testInfo);
-  await createNewItem.createSelectMenuSet(testInfo);
-  await createNewItem.checkItemInMenuset(testInfo);
-
-  // Deploy
-  await deploymentPage.deployItem();
-
-  // Go to Deployments Page
-  await deploymentPage.openDeploymentLog(stgDeploymentsUrl);
-  await deploymentPage.openDeploymentDetailByName(deploymentName);
-  const deploymentId = await deploymentPage.getDeploymentId();
+ 
+   // Go to Menus
+  const goToMenus = new GoToMenus(page);
+   await goToMenus.clickMenus();
+ 
+   // Create Menuset
+  const menuManager = new CreateMenuset(page, deploymentName);
+  const menusetName = await menuManager.createMenuset(testInfo);
+  await menuManager.checkifMenusetExists(menusetName);
 });

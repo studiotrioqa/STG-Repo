@@ -1,4 +1,4 @@
-import { Page, test } from '@playwright/test'
+import { test } from '../../../../Utilities/base.fixture';
 
 // Pages
 import { LoginPage } from '../../../../Pages/Menu_Manager/1.Items/login';
@@ -22,11 +22,11 @@ import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../.
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
-test('Single Item - Advance - Dietary Icons', async ({page}, testInfo) => {
+test('Single_Item_General_Info', async ({page}, testInfo) => {
   const deploymentName = makeDeploymentName(testInfo.title, testInfo.project.name);
   await page.goto(stgStudioUrl, {
-  waitUntil: 'domcontentloaded',
-});
+    waitUntil: 'domcontentloaded',
+  });
 
   // Login to STUDIO
   // Session is already authenticated via storageState
@@ -45,10 +45,9 @@ test('Single Item - Advance - Dietary Icons', async ({page}, testInfo) => {
   const itemSearch = new SearchPLU(page);
   await itemSearch.searchPLU(PLU);
 
-  // Selecting Item, open Advanced tab and edit visual tag
-  const advancedEditor = new ItemAdvancedEditor(page);
-  await advancedEditor.navigateToAdvancedTab();
-  await advancedEditor.IconsSelector();
+  // Edit Item General Info
+  const itemEditor = new ItemGeneral(page);
+  await itemEditor.editFieldsWithRandomLetters(addRandomLetters);
  
   // Save changes
   const itemSaveButton = new ItemSaveButton(page);

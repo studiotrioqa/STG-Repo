@@ -10,6 +10,8 @@ import { ItemModifiers } from '../../../../Pages/Menu_Manager/1.Items/itemModifi
 import { ItemAdvancedEditor } from '../../../../Pages/Menu_Manager/1.Items/itemAdvanced';
 import { DeploymentPage } from '../../../../Pages/Menu_Manager/1.Items/deploymentPage';
 import { ItemSaveButton } from '../../../../Pages/Menu_Manager/1.Items/itemSaveButton';
+import { GoToMenus } from '../../../../Pages/Menu_Manager/2.Menus/goToMenus';
+import { CreateNewItem } from '../../../../Pages/Menu_Manager/1.Items/createNewItem';
 
 // Utilities
 import { makeDeploymentName } from '../../../../Utilities/testUtils';
@@ -22,7 +24,7 @@ import { stgStudioUrl, stgLoginCredentials, stgDeploymentsUrl } from '../../../.
 
 test.setTimeout(600000); // Set timeout to 10 minutes for the entire test suite
 
-test('Single Item - ALL', async ({page}, testInfo) => {
+test('Create_Item', async ({page}, testInfo) => {
   const deploymentName = makeDeploymentName(testInfo.title, testInfo.project.name);
   await page.goto(stgStudioUrl, {
     waitUntil: 'domcontentloaded',
@@ -37,40 +39,21 @@ test('Single Item - ALL', async ({page}, testInfo) => {
 
   // Check if there's in progress deployment
   const deploymentPage = new DeploymentPage(page, deploymentName);
-  await deploymentPage.openAndFilterDeployments();
-  await deploymentPage.assertNoInProgressDeployment(storeName);
-  await deploymentPage.returnToStudio();
+  // await deploymentPage.openAndFilterDeployments();
+  // await deploymentPage.assertNoInProgressDeployment(storeName);
+  // await deploymentPage.returnToStudio();
 
-  // Search for Item
-  const itemSearch = new SearchPLU(page);
-  await itemSearch.searchPLU(PLU);
-
-  // General Info
-  const itemEditor = new ItemGeneral(page);
-  await itemEditor.editFieldsWithRandomLetters(addRandomLetters);
-
-  // Pricing (Apply All)
-  const itemApplyAllPricing = new ItemApplyAllPricing(page);
-  await itemApplyAllPricing.goToPricingAndEditApplyAll(addPrice, getOperation as ('+' | '-'), testInfo);
-
-  // Ingredients
-  const itemIngredients = new ItemIngredients(page);
-  await itemIngredients.editExtras(testInfo);
-
-  // Modifiers
-  const modifiers = new ItemModifiers(page);
-  await modifiers.clickModifierTab();
-  await modifiers.addModifiers();
-  await modifiers.removeModifiers();
-
-  // Advanced
-  const advancedEditor = new ItemAdvancedEditor(page);
-  await advancedEditor.navigateToAdvancedTab();
-  await advancedEditor.addVisualTag(addRandomLetters);
-
-  // Save changes
-  const itemSaveButton = new ItemSaveButton(page);
-  await itemSaveButton.save();
+  // Create new Item
+  const createNewItem = new CreateNewItem(page, deploymentName);
+  await createNewItem.clickCreateNewItemButton();
+  await createNewItem.categorySelection(testInfo);
+  await createNewItem.createItemBasedOnSubCategory(testInfo);
+  await createNewItem.setItemPrice(testInfo);
+  await createNewItem.setItemImage(testInfo);
+  await createNewItem.ingredientsSubCategorySelector(testInfo);
+  await createNewItem.createItemAddModifiers(undefined, testInfo);
+  await createNewItem.createSelectMenuSet(testInfo);
+  await createNewItem.checkItemInMenuset(testInfo);
 
   // Deploy
   await deploymentPage.deployItem();
